@@ -83,6 +83,7 @@
 <body>
 <header>
   <h1><span class="flag"><i style="background:#fdb913"></i><i style="background:#006a44"></i><i style="background:#c1272d"></i></span>Temos egzaminui</h1>
+  <div class="sub" id="vstat"></div>
 </header>
 
 <main>
@@ -666,8 +667,6 @@ function renderList(){
   a.onclick=()=>openEditor(null); g.appendChild(a);
   const x=document.createElement("button"); x.className="topic add"; x.textContent="⇄ Перенести правки на другое устройство";
   x.onclick=openTransfer; g.appendChild(x);
-  const v=document.createElement("button"); v.className="topic add"; v.textContent="🔊 Озвучить правки";
-  v.onclick=()=>voiceEdits(v); g.appendChild(v);
 }
 
 /* ---------- speech ---------- */
@@ -705,48 +704,76 @@ function loadAudio(){
     return n;
   }).catch(()=>0);
 }
-loadAudio();
+loadAudio().then(()=>{ if(missingAudio() && ghToken()) autoVoice(); else showDone(); });
 
-/* ---------- озвучка правок через GitHub ----------
-   Кнопка кладёт правки в edits.json репозитория (GitHub API, токен хранится только в этом браузере).
-   GitHub Actions (.github/workflows/voice.yml) озвучивает новые фразы и обновляет сайт. */
+/* ---------- автоозвучка правок через GitHub ----------
+   После сохранения правок они сами уходят в edits.json репозитория (GitHub API, токен хранится
+   только в этом браузере). GitHub Actions (.github/workflows/voice.yml) озвучивает новые фразы
+   и обновляет сайт; страничка ждёт mp3 и пишет состояние под заголовком. */
 const GH_REPO="sk8serg-del/temos-egzaminui", GH_TOKEN_KEY="lt-temos-gh-token";
+const GH_API="https://api.github.com/repos/"+GH_REPO+"/contents/edits.json";
+let vsBusy=false, vsAgain=false, vsPoll=null, vsClick=null;
 function missingAudio(){
   let n=0; allTopics().forEach(t=>t.s.forEach(p=>{ if(!AUDIO[p[0].trim()]) n++; })); return n;
 }
+function vstat(text, onclick){
+  const e=$("vstat"); e.textContent=text; vsClick=onclick||null;
+  e.style.cursor=onclick?"pointer":"default"; e.style.textDecoration=onclick?"underline dotted":"none";
+}
+$("vstat").onclick=()=>{ if(vsClick) vsClick(); };
+function ghToken(){ try{ return localStorage.getItem(GH_TOKEN_KEY); }catch(e){ return null; } }
+function askToken(){
+  const t=(prompt("Вставь GitHub-токен (github_pat_…, доступ к репозиторию temos-egzaminui). Он сохранится только в этом браузере.")||"").trim();
+  if(!t) return;
+  try{ localStorage.setItem(GH_TOKEN_KEY,t); }catch(e){}
+  autoVoice(true);
+}
 function b64utf8(s){ const b=new TextEncoder().encode(s); let x=""; b.forEach(c=>x+=String.fromCharCode(c)); return btoa(x); }
-async function voiceEdits(btn){
-  let token=null; try{ token=localStorage.getItem(GH_TOKEN_KEY); }catch(e){}
-  if(!token){
-    token=(prompt("Вставь GitHub-токен (доступ только к репозиторию temos-egzaminui, право Contents: Read and write). Он сохранится только в этом браузере.")||"").trim();
-    if(!token) return;
-    try{ localStorage.setItem(GH_TOKEN_KEY, token); }catch(e){}
-  }
-  const set=t=>{ btn.textContent=t; };
-  const api="https://api.github.com/repos/"+GH_REPO+"/contents/edits.json";
+function utf8b64(s){ const x=atob(s.replace(/\s/g,"")); return new TextDecoder().decode(Uint8Array.from(x,c=>c.charCodeAt(0))); }
+function editsJson(){ return JSON.stringify({custom, edits}, null, 1); }
+function showDone(){
+  const left=missingAudio();
+  if(!left) vstat("🔊 Все фразы озвучены живым голосом");
+  else if(!ghToken()) vstat(`✎ ${left} фраз без озвучки — нажми, чтобы подключить автоозвучку`, askToken);
+  else vstat(`⏳ Ждут озвучки: ${left} фраз`, ()=>autoVoice(true));
+}
+async function autoVoice(force){
+  if(vsBusy){ vsAgain=true; return; }
+  const token=ghToken();
+  if(!token){ showDone(); return; }
+  vsBusy=true; clearTimeout(vsPoll);
   const hdr={Authorization:"Bearer "+token, Accept:"application/vnd.github+json"};
   try{
-    set("⏳ Отправляю правки…");
-    let sha;
-    const g=await fetch(api+"?ref=main",{headers:hdr,cache:"no-store"});
-    if(g.ok) sha=(await g.json()).sha;
-    else if(g.status===401||g.status===403){ try{ localStorage.removeItem(GH_TOKEN_KEY); }catch(e){} throw new Error("токен не подходит — нажми ещё раз и вставь новый"); }
-    const body={message:"Правки со странички", content:b64utf8(JSON.stringify({custom, edits}, null, 1)), branch:"main"};
-    if(sha) body.sha=sha;
-    const p=await fetch(api,{method:"PUT",headers:hdr,body:JSON.stringify(body)});
-    if(!p.ok){ if(p.status===401||p.status===403){ try{ localStorage.removeItem(GH_TOKEN_KEY); }catch(e){} } throw new Error("GitHub ответил "+p.status); }
-  }catch(e){ set("🔊 Озвучить правки"); alert("Не получилось: "+e.message); return; }
-  // ждём, пока GitHub озвучит и обновит сайт (обычно 1–3 минуты)
-  const t0=Date.now();
-  const poll=async()=>{
-    await loadAudio();
-    const left=missingAudio();
-    if(!left){ set("✓ Всё озвучено"); setTimeout(()=>set("🔊 Озвучить правки"),5000); return; }
-    if(Date.now()-t0>8*60e3){ set("🔊 Озвучить правки"); alert("Озвучка ещё не готова ("+left+" фраз). Обнови страничку через пару минут."); return; }
-    set(`⏳ GitHub озвучивает… осталось ${left} фраз`);
-    setTimeout(poll,20000);
-  };
-  setTimeout(poll,30000); set("⏳ GitHub озвучивает…");
+    const body=editsJson();
+    const g=await fetch(GH_API+"?ref=main&t="+Date.now(),{headers:hdr,cache:"no-store"});
+    if(g.status===401||g.status===403) throw {auth:true};
+    let sha=null, same=false;
+    if(g.ok){ const j=await g.json(); sha=j.sha; try{ same = utf8b64(j.content)===body; }catch(e){} }
+    if(!same){
+      vstat("⏳ Отправляю правки на озвучку…");
+      const p=await fetch(GH_API,{method:"PUT",headers:hdr,body:JSON.stringify(
+        Object.assign({message:"Правки со странички", content:b64utf8(body), branch:"main"}, sha?{sha}:{}))});
+      if(p.status===401||p.status===403) throw {auth:true};
+      if(p.status===409){ vsBusy=false; setTimeout(()=>autoVoice(true),3000); return; }
+      if(!p.ok) throw new Error("GitHub ответил "+p.status);
+    }
+  }catch(e){
+    vsBusy=false;
+    if(e && e.auth){ try{ localStorage.removeItem(GH_TOKEN_KEY); }catch(_){}
+      vstat("⚠ Токен не подошёл — нажми, чтобы вставить новый", askToken); return; }
+    vstat("⚠ Не получилось отправить правки (нет интернета?) — нажми, чтобы повторить", ()=>autoVoice(true)); return;
+  }
+  vsBusy=false;
+  if(vsAgain){ vsAgain=false; autoVoice(true); return; }
+  waitAudio(Date.now());
+}
+async function waitAudio(t0){
+  await loadAudio();
+  const left=missingAudio();
+  if(!left){ vstat("✓ Правки озвучены — все фразы живым голосом"); setTimeout(showDone,8000); return; }
+  if(Date.now()-t0>10*60e3){ vstat(`⚠ GitHub долго не озвучивает (${left} фраз) — нажми, чтобы проверить ещё раз`, ()=>autoVoice(true)); return; }
+  vstat(`⏳ GitHub озвучивает правки… осталось ${left} фраз (1–3 мин)`);
+  vsPoll=setTimeout(()=>waitAudio(t0),20000);
 }
 
 /* правки с GitHub: если в этом браузере своих правок нет — берём сохранённые в репозитории */
@@ -757,6 +784,7 @@ if(!Object.keys(edits).length && !custom.length){
     if(Object.keys(edits).length || custom.length) return;
     edits=d.edits; custom=d.custom; saveAll();
     if($("list").style.display!=="none") renderList();
+    showDone();
   }).catch(()=>{});
 }
 
@@ -1061,12 +1089,14 @@ $("edSave").onclick=()=>{
   else { edits[+id.slice(1)]=t; }
   const ok=saveAll();
   renderList(); openTopic(getTopic(id), false);
+  autoVoice();
   if(!ok){ const w=$("warn"); w.style.display="block"; w.textContent="Изменения видны, но браузер не дал их сохранить — после перезагрузки они пропадут."; }
 };
 $("edDelete").onclick=()=>{
   if(editId===null) return;
   if(editId[0]==="c"){ custom.splice(+editId.slice(1),1); saveAll(); renderList(); show("list"); }
   else { delete edits[+editId.slice(1)]; saveAll(); renderList(); openTopic(getTopic(editId),false); }
+  autoVoice();
 };
 
 /* ---------- transfer ---------- */
@@ -1085,7 +1115,7 @@ $("trLoad").onclick=()=>{
   try{
     const d=JSON.parse($("trIn").value);
     if(!d || !Array.isArray(d.custom) || typeof d.edits!=="object") throw 0;
-    custom=d.custom; edits=d.edits; saveAll(); renderList(); show("list");
+    custom=d.custom; edits=d.edits; saveAll(); renderList(); show("list"); autoVoice();
   }catch(e){ $("trMsg").textContent="Не получилось прочитать — вставь текст целиком."; }
 };
 

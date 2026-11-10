@@ -37,9 +37,9 @@
 - Git: `.git` вынесен в `D:/git-dirs/LTKALBA`; remote = github.com/sk8serg-del/temos-egzaminui,
   сайт GitHub Pages: https://sk8serg-del.github.io/temos-egzaminui/ (деплой = commit + push).
 - `.github/workflows/voice.yml`: на каждый push в main запускает `lt_audio.py`, коммитит новые mp3
-  и публикует Pages (источник Pages = GitHub Actions). Кнопка «🔊 Озвучить правки» на страничке
+  и публикует Pages (источник Pages = GitHub Actions). После сохранения правок страничка сама (autoVoice)
   пишет `edits.json` в репозиторий через GitHub API (fine-grained токен пользователя в localStorage
-  `lt-temos-gh-token`) и ждёт, пока появятся mp3. Если в браузере своих правок нет — страничка берёт `edits.json` с сайта.
+  `lt-temos-gh-token`) и ждёт, пока появятся mp3; состояние — строка `#vstat` под заголовком (клик = ввести токен / повторить). Если в браузере своих правок нет — страничка берёт `edits.json` с сайта.
 
 ## Правила
 - Литовский — уровень A2: простые предложения, грамматически правильные. Перевод — естественный русский.
