@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Литовский: темы для экзамена</title>
+<style>
+  :root{
+    --bg:#f6f4ef; --card:#ffffff; --ink:#1c1b19; --muted:#6d6a63; --line:#e3dfd6;
+    --lt:#0b6b3a; --accent:#c79a00; --ru:#7a2e1f; --hl:#fff4c7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141412; --card:#1e1d1a; --ink:#efece6; --muted:#9a968d; --line:#33312c;
+      --lt:#5fd197; --accent:#f0c23a; --ru:#f0a08d; --hl:#3a3420; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-tap-highlight-color:transparent}
+  header{padding:18px 18px 6px;max-width:760px;margin:0 auto}
+  .flag{display:inline-flex;height:10px;width:30px;border-radius:2px;overflow:hidden;vertical-align:middle;margin-right:8px}
+  .flag i{flex:1}
+  h1{font-size:22px;margin:0;display:flex;align-items:center}
+  .sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+  main{max-width:760px;margin:0 auto;padding:10px 14px 40px}
+  .warn{background:var(--hl);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.4;margin:8px 0 12px;display:none}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .topic{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left;
+    cursor:pointer;color:var(--ink);font:inherit;transition:transform .08s}
+  .topic:active{transform:scale(.98)}
+  .topic .n{font-size:12px;color:var(--muted)}
+  .topic .lt{font-weight:650;font-size:16px;color:var(--lt);margin:4px 0 2px}
+  .topic .ru{font-size:13.5px;color:var(--muted)}
+  .topic.add{border-style:dashed;display:flex;align-items:center;justify-content:center;color:var(--muted);min-height:92px}
+  /* player */
+  #player{display:none}
+  .bar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .back{background:none;border:none;color:var(--ink);font:inherit;font-size:15px;padding:6px 4px;cursor:pointer}
+  .ptitle{flex:1;min-width:0}
+  .ptitle .lt{font-weight:700;color:var(--lt);font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ptitle .ru{font-size:13px;color:var(--muted)}
+  .stage{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 16px;min-height:380px;
+    display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+  .sub-lt{font-size:clamp(30px,7.5vw,46px);line-height:1.3;font-weight:600;color:var(--ink);min-height:3em}
+  .sub-lt .w{border-radius:4px;transition:background .1s}
+  .sub-lt .w.on{background:var(--hl);color:var(--lt)}
+  .divider{height:1px;background:var(--line)}
+  .sub-ru{font-size:clamp(23px,5.8vw,32px);line-height:1.35;color:var(--ru);min-height:2.6em}
+  .hidden-txt{filter:blur(7px);user-select:none;cursor:pointer}
+  .progress{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin:14px 2px 6px}
+  .progress i{display:block;height:100%;width:0;background:var(--lt);transition:width .25s}
+  .count{font-size:12.5px;color:var(--muted);text-align:center}
+  .controls{display:flex;justify-content:center;align-items:center;gap:14px;margin:14px 0 8px}
+  .cbtn{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);
+    font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .cbtn.play{width:72px;height:72px;background:var(--lt);color:#fff;border:none;font-size:28px}
+  @media (prefers-color-scheme: dark){ .cbtn.play{color:#0d1a13} }
+  .opts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:8px}
+  .chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 12px;font:inherit;font-size:13.5px;cursor:pointer}
+  .chip.on{background:var(--lt);color:#fff;border-color:var(--lt)}
+  @media (prefers-color-scheme: dark){ .chip.on{color:#0d1a13} }
+  .row{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:12px;font-size:13.5px;color:var(--muted);flex-wrap:wrap}
+  input[type=range]{accent-color:var(--lt);width:140px}
+  select{font:inherit;font-size:13px;padding:6px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:230px}
+  details{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  summary{cursor:pointer;font-weight:600}
+  .full p{margin:10px 0;line-height:1.45;cursor:pointer;border-radius:6px;padding:2px 4px}
+  .full p.cur{background:var(--hl)}
+  .full .l{color:var(--ink)} .full .r{color:var(--muted);font-size:14px;display:block}
+  /* editor */
+  #editor{display:none}
+  label{display:block;font-size:13.5px;color:var(--muted);margin:12px 0 4px}
+  input[type=text],textarea{width:100%;font:inherit;font-size:15px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+  textarea{min-height:170px;line-height:1.4}
+  .btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .btn{border:none;border-radius:10px;padding:11px 16px;font:inherit;font-weight:600;cursor:pointer;background:var(--lt);color:#fff}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.danger{background:transparent;color:#c0392b;border:1px solid #c0392b55}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .err{color:#c0392b;font-size:13.5px;margin-top:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="flag"><i style="background:#fdb913"></i><i style="background:#006a44"></i><i style="background:#c1272d"></i></span>Temos egzaminui</h1>
+</header>
+
+<main>
+  <div class="warn" id="warn"></div>
+
+  <!-- LIST -->
+  <section id="list">
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- PLAYER -->
+  <section id="player">
+    <div class="bar">
+      <button class="back" id="backBtn">‹ Темы</button>
+      <div class="ptitle"><div class="lt" id="pTitleLt"></div><div class="ru" id="pTitleRu"></div></div>
+      <button class="chip" id="editBtn" style="display:none">✎ Править</button>
+    </div>
+
+    <div class="stage">
+      <div class="sub-lt" id="subLt"></div>
+      <div class="divider"></div>
+      <div class="sub-ru" id="subRu"></div>
+    </div>
+
+    <div class="progress"><i id="prog"></i></div>
+    <div class="count" id="count"></div>
+
+    <div class="controls">
+      <button class="cbtn" id="prevBtn" title="Назад">⏮</button>
+      <button class="cbtn play" id="playBtn" title="Играть">▶</button>
+      <button class="cbtn" id="nextBtn" title="Дальше">⏭</button>
+    </div>
+
+    <div class="opts">
+      <button class="chip" id="repeatBtn">🔁 Повтор фразы</button>
+      <button class="chip" id="hideLtBtn">Скрыть литовский</button>
+      <button class="chip on" id="showRuBtn">Перевод: вкл</button>
+      <button class="chip" id="pauseBtn">Пауза между фразами</button>
+      <button class="chip" id="autoNextBtn">Темы подряд</button>
+    </div>
+
+    <div class="row" id="remote" style="font-size:13px"></div>
+    <div class="row">
+      <span>Скорость</span>
+      <input type="range" id="rate" min="0.5" max="1.3" step="0.05" value="0.85">
+      <span id="rateVal">0.85×</span>
+    </div>
+    <div class="row" id="voiceRow">
+      <span>Голос</span><select id="voiceSel"></select>
+    </div>
+    <div class="row" id="voiceHint" style="font-size:12.5px"></div>
+
+    <details>
+      <summary>Весь текст темы</summary>
+      <div class="full" id="full"></div>
+    </details>
+  </section>
+
+  <!-- EDITOR -->
+  <section id="editor">
+    <div class="bar">
+      <button class="back" id="edBack">‹ Темы</button>
+      <div class="ptitle"><div class="lt" id="edHead">Своя тема</div><div class="ru">Каждая строка — одна фраза</div></div>
+    </div>
+    <label>Название (русский)</label>
+    <input type="text" id="edTitleRu" placeholder="Напр.: Мой друг">
+    <label>Название (литовский) — переводится само</label>
+    <input type="text" id="edTitleLt" placeholder="Pvz.: Mano draugas">
+    <label>Русский текст — по одной фразе на строку</label>
+    <textarea id="edRu" placeholder="Моего друга зовут Томас.&#10;Он живёт в Каунасе."></textarea>
+    <div class="hint" id="trStatus"></div>
+    <label>Литовский текст — переводится сам, можно поправить вручную</label>
+    <textarea id="edLt" placeholder="Mano draugas vardu Tomas.&#10;Jis gyvena Kaune."></textarea>
+    <div class="hint">Можно вставить сплошной текст — он сам разобьётся на предложения. Новые фразы без записи звучат голосом браузера, пока не прогнать <code>lt_audio.py</code>.</div>
+    <div class="err" id="edErr"></div>
+    <div class="btns">
+      <button class="btn" id="edSave">Сохранить</button>
+      <button class="btn ghost" id="edCancel">Отмена</button>
+      <button class="btn danger" id="edDelete" style="display:none">Удалить тему</button>
+    </div>
+    <div class="hint">Правки хранятся в этом браузере на этом устройстве. Чтобы перенести их на другое устройство — «⇄ Перенести правки» в списке тем.</div>
+  </section>
+
+  <section id="transfer" style="display:none">
+    <div class="bar">
+      <button class="back" id="trBack">‹ Темы</button>
+      <div class="ptitle"><div class="lt">Перенос правок</div><div class="ru">Свои темы и изменённые тексты</div></div>
+    </div>
+    <label>1. На этом устройстве: скопируй этот текст</label>
+    <textarea id="trOut" readonly style="min-height:100px;font-size:12px"></textarea>
+    <div class="btns"><button class="btn" id="trCopy">Копировать</button></div>
+    <label>2. На другом устройстве: вставь его сюда</label>
+    <textarea id="trIn" style="min-height:100px;font-size:12px"></textarea>
+    <div class="btns"><button class="btn" id="trLoad">Загрузить правки</button></div>
+    <div class="err" id="trMsg"></div>
+    <div class="hint">Загрузка заменит правки на этом устройстве.</div>
+  </section>
+</main>
+
+<script>
+let AUDIO={};
+const BUILTIN = [
+ { lt:"Apie save", ru:"О себе", s:[
+  ["Laba diena!", "Добрый день!"],
+  ["Mano vardas Sergejus.", "Меня зовут Сергей."],
+  ["Aš gyvenu Lietuvoje, Vilniuje.", "Я живу в Литве, в Вильнюсе."],
+  ["Mano gimtoji kalba yra rusų kalba.", "Мой родной язык — русский."],
+  ["Lietuvių kalbos mokausi jau kurį laiką.", "Литовский язык я учу уже некоторое время."],
+  ["Aš dirbu su automobiliais ir elektronika.", "Я работаю с автомобилями и электроникой."],
+  ["Mano darbas yra sunkus, bet labai įdomus.", "Моя работа трудная, но очень интересная."],
+  ["Aš esu ramus, kantrus ir smalsus žmogus.", "Я спокойный, терпеливый и любознательный человек."],
+  ["Man patinka išsiaiškinti, kaip veikia įvairūs prietaisai.", "Мне нравится разбираться, как работают разные устройства."],
+  ["Laisvalaikiu mėgstu keliauti ir kurti elektronikos projektus.", "В свободное время люблю путешествовать и делать проекты по электронике."],
+  ["Aš mėgstu gamtą, ramybę ir gerą maistą.", "Я люблю природу, тишину и хорошую еду."],
+  ["Man nepatinka triukšmas ir skubėjimas.", "Мне не нравятся шум и спешка."],
+  ["Mano svajonė – pasidaryti savo elektromobilį.", "Моя мечта — сделать свой электромобиль."],
+  ["Dabar ruošiuosi valstybinės kalbos egzaminui.", "Сейчас готовлюсь к экзамену по государственному языку."],
+  ["Aš esu vidutinio ūgio, turiu trumpus tamsius plaukus.", "Я среднего роста, у меня короткие тёмные волосы."],
+  ["Be rusų kalbos, šiek tiek kalbu angliškai.", "Кроме русского, немного говорю по-английски."],
+  ["Lietuviškai dar kalbu nelabai gerai, bet kasdien stengiuosi kalbėti daugiau.", "По-литовски пока говорю не очень хорошо, но каждый день стараюсь говорить больше."],
+  ["Mano darbo dienos būna ilgos, todėl vakarais dažnai būnu pavargęs.", "Мои рабочие дни длинные, поэтому вечером я часто уставший."],
+  ["Bet kai darbas sekasi, jaučiuosi labai gerai.", "Но когда работа идёт хорошо, я чувствую себя отлично."],
+  ["Draugai sako, kad aš esu patikimas ir darbštus.", "Друзья говорят, что я надёжный и трудолюбивый."],
+  ["Kartais būnu per daug rimtas, bet mėgstu ir pajuokauti.", "Иногда я слишком серьёзный, но и пошутить люблю."],
+  ["Man patinka mokytis naujų dalykų ir spręsti sudėtingas problemas.", "Мне нравится узнавать новое и решать сложные задачи."],
+  ["Taip pat mėgstu gerą muziką, ypač kai vairuoju.", "Ещё люблю хорошую музыку, особенно когда за рулём."],
+  ["Aš nemėgstu tinginiauti ir ilgai sėdėti be darbo.", "Я не люблю лениться и долго сидеть без дела."],
+  ["Ateityje noriu gyventi savo name ir turėti nuosavas dirbtuves.", "В будущем хочу жить в своём доме и иметь собственную мастерскую."],
+  ["Taip pat norėčiau gerai išmokti lietuvių kalbą, kad galėčiau laisvai kalbėtis su visais.", "Ещё хотел бы хорошо выучить литовский, чтобы свободно со всеми разговаривать."],
+  ["Manau, kad Lietuvoje gyventi gera: čia ramu, saugu ir daug gamtos.", "Я думаю, что в Литве жить хорошо: здесь спокойно, безопасно и много природы."],
+  ["Ačiū už dėmesį.", "Спасибо за внимание."]
+ ]},
+ { lt:"Mano šeima", ru:"Моя семья", s:[
+  ["Mano šeima nėra labai didelė.", "Моя семья не очень большая."],
+  ["Mano tėvai gyvena kitame mieste.", "Мои родители живут в другом городе."],
+  ["Mama dirba mokykloje, ji yra mokytoja.", "Мама работает в школе, она учительница."],
+  ["Tėtis yra inžinierius, jis labai mėgsta techniką.", "Папа — инженер, он очень любит технику."],
+  ["Aš turiu jaunesnį brolį.", "У меня есть младший брат."],
+  ["Jis studijuoja universitete ir nori tapti programuotoju.", "Он учится в университете и хочет стать программистом."],
+  ["Mano brolis yra linksmas ir draugiškas.", "Мой брат весёлый и дружелюбный."],
+  ["Mes dažnai kalbamės telefonu, nes gyvename toli vienas nuo kito.", "Мы часто разговариваем по телефону, потому что живём далеко друг от друга."],
+  ["Kai turiu laiko, važiuoju aplankyti tėvų.", "Когда есть время, езжу навестить родителей."],
+  ["Per šventes visa šeima susitinka kartu.", "На праздники вся семья собирается вместе."],
+  ["Mama gamina skanius patiekalus, o mes jai padedame.", "Мама готовит вкусные блюда, а мы ей помогаем."],
+  ["Per Kalėdas puošiame eglutę ir dovanojame vieni kitiems dovanas.", "На Рождество наряжаем ёлку и дарим друг другу подарки."],
+  ["Mes kartu valgome, kalbamės ir juokiamės.", "Мы вместе едим, разговариваем и смеёмся."],
+  ["Mano mama yra labai rūpestinga ir draugiška moteris.", "Моя мама очень заботливая и дружелюбная женщина."],
+  ["Ji mėgsta skaityti knygas ir dirbti sode.", "Она любит читать книги и работать в саду."],
+  ["Mano tėtis yra ramus ir rimtas žmogus.", "Мой папа спокойный и серьёзный человек."],
+  ["Jis visada moka sutaisyti bet kokį daiktą.", "Он всегда умеет починить любую вещь."],
+  ["Manau, kad meilę technikai aš paveldėjau iš jo.", "Думаю, что любовь к технике я унаследовал от него."],
+  ["Mano brolis yra aukštas ir sportiškas.", "Мой брат высокий и спортивный."],
+  ["Jis žaidžia krepšinį ir mėgsta kompiuterinius žaidimus.", "Он играет в баскетбол и любит компьютерные игры."],
+  ["Mes su broliu esame geri draugai.", "Мы с братом хорошие друзья."],
+  ["Taip pat turiu senelius, jie gyvena kaime.", "Ещё у меня есть бабушка и дедушка, они живут в деревне."],
+  ["Seneliai augina daržoves ir laiko vištas.", "Бабушка с дедушкой выращивают овощи и держат кур."],
+  ["Vasarą visi kartu važiuojame pas senelius.", "Летом все вместе ездим к бабушке и дедушке."],
+  ["Senelė kepa labai skanius pyragus.", "Бабушка печёт очень вкусные пироги."],
+  ["Mūsų šeimoje yra tradicija kartu švęsti gimtadienius.", "В нашей семье есть традиция вместе праздновать дни рождения."],
+  ["Gimtadienio proga dovanojame dovanas ir sakome sveikinimus.", "На день рождения дарим подарки и говорим поздравления."],
+  ["Man šeima yra labai svarbi, nes ji visada mane palaiko.", "Для меня семья очень важна, потому что она всегда меня поддерживает."]
+ ]},
+ { lt:"Mano diena", ru:"Мой день", s:[
+  ["Mano diena prasideda septintą valandą ryto.", "Мой день начинается в семь часов утра."],
+  ["Atsikeliu, nusiprausiu ir išsivalau dantis.", "Встаю, умываюсь и чищу зубы."],
+  ["Paskui pusryčiauju ir geriu kavą.", "Потом завтракаю и пью кофе."],
+  ["Pusę devynių išvažiuoju į darbą.", "В половине девятого уезжаю на работу."],
+  ["Dirbu nuo devynių iki šešių.", "Работаю с девяти до шести."],
+  ["Per pietų pertrauką pavalgau ir trumpai pailsiu.", "В обеденный перерыв ем и немного отдыхаю."],
+  ["Po darbo kartais užsuku į parduotuvę.", "После работы иногда заезжаю в магазин."],
+  ["Namie gaminu vakarienę.", "Дома готовлю ужин."],
+  ["Vakare ilsiuosi: žiūriu filmą, skaitau arba dirbu prie savo projektų.", "Вечером отдыхаю: смотрю фильм, читаю или занимаюсь своими проектами."],
+  ["Kartais vakare mokausi lietuvių kalbos.", "Иногда вечером учу литовский язык."],
+  ["Apie vienuoliktą valandą einu miegoti.", "Около одиннадцати часов ложусь спать."],
+  ["Darbo dienomis rytas būna skubotas.", "В рабочие дни утро бывает суетливым."],
+  ["Kartais neturiu laiko pusryčiams, tada tik išgeriu kavos.", "Иногда не успеваю позавтракать, тогда только выпиваю кофе."],
+  ["Į darbą važiuoju apie dvidešimt minučių.", "На работу еду около двадцати минут."],
+  ["Darbe pirmiausia patikrinu, kokie automobiliai laukia remonto.", "На работе сначала проверяю, какие машины ждут ремонта."],
+  ["Paskui susiplanuoju dienos darbus.", "Потом планирую работу на день."],
+  ["Pietums dažnai valgau sriubą arba kepsnį su bulvėmis.", "На обед часто ем суп или мясо с картошкой."],
+  ["Po pietų dirbu toliau iki vakaro.", "После обеда работаю дальше до вечера."],
+  ["Grįžęs namo, persirengiu ir šiek tiek pailsiu.", "Вернувшись домой, переодеваюсь и немного отдыхаю."],
+  ["Vakarienę dažniausiai gaminu pats.", "Ужин чаще всего готовлю сам."],
+  ["Po vakarienės išplaunu indus arba įjungiu indaplovę.", "После ужина мою посуду или включаю посудомойку."],
+  ["Kartais vakare paskambinu tėvams arba draugams.", "Иногда вечером звоню родителям или друзьям."],
+  ["Prieš miegą dar paskaitau knygą arba naujienas telefone.", "Перед сном ещё читаю книгу или новости в телефоне."],
+  ["Savaitgaliais keliuosi vėliau ir daugiau ilsiuosi.", "По выходным встаю позже и больше отдыхаю."],
+  ["Savaitgaliais tvarkau namus, skalbiu drabužius ir einu apsipirkti.", "По выходным убираю дом, стираю одежду и хожу за покупками."],
+  ["Šeštadienį dažnai dirbu prie savo projektų dirbtuvėse.", "В субботу часто занимаюсь своими проектами в мастерской."],
+  ["Sekmadienį stengiuosi ilsėtis ir susitikti su draugais.", "В воскресенье стараюсь отдыхать и встречаться с друзьями."]
+ ]},
+ { lt:"Mano namai", ru:"Мой дом", s:[
+  ["Aš gyvenu name netoli Vilniaus, nedideliame kaime.", "Я живу в доме недалеко от Вильнюса, в небольшой деревне."],
+  ["Namas nėra didelis, apie šimtą kvadratinių metrų.", "Дом небольшой, около ста квадратных метров."],
+  ["Name yra virtuvė, svetainė, du miegamieji, vonios kambarys ir tualetas.", "В доме есть кухня, гостиная, две спальни, ванная и туалет."],
+  ["Virtuvė yra šviesi ir patogi, joje yra viryklė, šaldytuvas ir indaplovė.", "Кухня светлая и удобная, в ней есть плита, холодильник и посудомоечная машина."],
+  ["Svetainėje stovi minkšta sofa, stalas ir televizorius.", "В гостиной стоят мягкий диван, стол и телевизор."],
+  ["Čia mes ilsimės, žiūrime filmus ir priimame svečius.", "Здесь мы отдыхаем, смотрим фильмы и принимаем гостей."],
+  ["Miegamajame yra lova, spinta drabužiams ir naktinė spintelė.", "В спальне есть кровать, шкаф для одежды и тумбочка."],
+  ["Taip pat turiu nedideles dirbtuves, kur taisau ir konstruoju įvairius daiktus.", "Ещё у меня есть небольшая мастерская, где я ремонтирую и конструирую разные вещи."],
+  ["Prie namo yra kiemas ir sodas.", "Возле дома есть двор и сад."],
+  ["Vasarą sode auga gėlės, obuoliai ir daržovės.", "Летом в саду растут цветы, яблоки и овощи."],
+  ["Kaime yra ramu, o oras švarus.", "В деревне тихо, а воздух чистый."],
+  ["Iki miesto važiuoju automobiliu, tai užtrunka apie dvidešimt minučių.", "До города езжу на машине, это занимает около двадцати минут."],
+  ["Parduotuvė yra netoli, todėl patogu nusipirkti maisto.", "Магазин рядом, поэтому удобно покупать продукты."],
+  ["Namas yra vieno aukšto.", "Дом одноэтажный."],
+  ["Dabar planuoju namo vidų ir darau remontą.", "Сейчас планирую интерьер дома и делаю ремонт."],
+  ["Įėjus į namą, yra nedidelis koridorius.", "Когда заходишь в дом, там небольшой коридор."],
+  ["Koridoriuje yra spinta striukėms ir batams.", "В коридоре есть шкаф для курток и обуви."],
+  ["Virtuvė sujungta su svetaine, todėl erdvės yra daug.", "Кухня объединена с гостиной, поэтому места много."],
+  ["Virtuvėje mes kartu gaminame ir valgome prie didelio stalo.", "На кухне мы вместе готовим и едим за большим столом."],
+  ["Vonios kambaryje yra dušas, kriauklė ir skalbimo mašina.", "В ванной есть душ, раковина и стиральная машина."],
+  ["Mano miegamasis yra mažesnis, bet jaukus.", "Моя спальня поменьше, но уютная."],
+  ["Pro langą matosi sodas ir miškas.", "Из окна видно сад и лес."],
+  ["Žiemą name šilta, nes jis gerai apšiltintas.", "Зимой в доме тепло, потому что он хорошо утеплён."],
+  ["Ant stogo norėčiau įrengti saulės elektrinę.", "На крыше хотел бы установить солнечную электростанцию."],
+  ["Kieme yra vietos dviem automobiliams.", "Во дворе есть место для двух машин."],
+  ["Sode auga obelys ir kriaušės, o šalia yra nedidelis daržas.", "В саду растут яблони и груши, а рядом небольшой огород."],
+  ["Vasarą kieme kepame šašlykus ir ilsimės lauke.", "Летом во дворе жарим шашлыки и отдыхаем на улице."],
+  ["Kaimynai yra draugiški, kartais vieni kitiems padedame.", "Соседи дружелюбные, иногда помогаем друг другу."],
+  ["Žinoma, gyventi kaime ne visada patogu, nes iki darbo ir didelių prekybos centrų toli.", "Конечно, жить в деревне не всегда удобно, потому что до работы и больших торговых центров далеко."],
+  ["Bet ramybė ir gamta man yra svarbesnės.", "Но покой и природа для меня важнее."],
+  ["Man patinka mano namai, nes čia jaučiuosi gerai ir ramiai.", "Мне нравится мой дом, потому что здесь мне хорошо и спокойно."]
+ ]},
+ { lt:"Vilnius – mano miestas", ru:"Вильнюс — мой город", s:[
+  ["Vilnius yra Lietuvos sostinė ir didžiausias šalies miestas.", "Вильнюс — столица Литвы и самый большой город страны."],
+  ["Jame gyvena daugiau kaip pusė milijono žmonių.", "В нём живёт больше полумиллиона человек."],
+  ["Tai gražus ir žalias miestas, per kurį teka Neris.", "Это красивый и зелёный город, через который течёт Нярис."],
+  ["Vilniaus senamiestis yra įtrauktas į UNESCO pasaulio paveldo sąrašą.", "Старый город Вильнюса включён в список всемирного наследия ЮНЕСКО."],
+  ["Čia yra daug bažnyčių, muziejų, kavinių ir restoranų.", "Здесь много костёлов, музеев, кафе и ресторанов."],
+  ["Garsiausios vietos yra Katedros aikštė, Gedimino pilies bokštas ir Aušros vartai.", "Самые известные места — Кафедральная площадь, башня Гедимина и Ворота Зари."],
+  ["Iš Gedimino pilies bokšto matosi visas miestas.", "С башни Гедимина виден весь город."],
+  ["Vasarą žmonės vaikšto po senamiestį ir sėdi lauko kavinėse.", "Летом люди гуляют по старому городу и сидят в уличных кафе."],
+  ["Žiemą Katedros aikštėje stovi didelė Kalėdų eglė.", "Зимой на Кафедральной площади стоит большая рождественская ёлка."],
+  ["Mieste yra patogus viešasis transportas: autobusai ir troleibusai.", "В городе удобный общественный транспорт: автобусы и троллейбусы."],
+  ["Vilniuje gera gyventi, nes čia yra viskas, ko reikia: darbas, parduotuvės, ligoninės ir parkai.", "В Вильнюсе хорошо жить, потому что здесь есть всё необходимое: работа, магазины, больницы и парки."],
+  ["Tačiau kartais gatvėse būna daug automobilių ir spūsčių.", "Однако иногда на улицах много машин и пробок."],
+  ["Pirmą kartą Vilnius paminėtas tūkstantis trys šimtai dvidešimt trečiaisiais metais.", "Впервые Вильнюс упоминается в тысяча триста двадцать третьем году."],
+  ["Legenda sako, kad kunigaikštis Gediminas susapnavo geležinį vilką.", "Легенда говорит, что князю Гедимину приснился железный волк."],
+  ["Po šio sapno jis įkūrė miestą.", "После этого сна он основал город."],
+  ["Senamiestyje yra siauros gatvelės ir seni namai.", "В старом городе узкие улочки и старые дома."],
+  ["Pilies gatvė yra viena seniausių ir gražiausių miesto gatvių.", "Улица Пилес — одна из самых старых и красивых улиц города."],
+  ["Labai įdomus yra Užupio rajonas, kuris vadinamas menininkų respublika.", "Очень интересен район Ужупис, который называют республикой художников."],
+  ["Užupis turi net savo konstituciją.", "У Ужуписа есть даже своя конституция."],
+  ["Naujojoje miesto dalyje yra daug modernių pastatų ir biurų.", "В новой части города много современных зданий и офисов."],
+  ["Mieste yra daug parkų, pavyzdžiui, Vingio parkas.", "В городе много парков, например, парк Вингис."],
+  ["Ten žmonės bėgioja, važinėja dviračiais ir ilsisi.", "Там люди бегают, катаются на велосипедах и отдыхают."],
+  ["Vasarą Vilniuje vyksta daug koncertų ir festivalių.", "Летом в Вильнюсе проходит много концертов и фестивалей."],
+  ["Kovo pradžioje vyksta Kaziuko mugė, kur galima nusipirkti rankdarbių ir verbų.", "В начале марта проходит ярмарка Казюкаса, где можно купить изделия ручной работы и вербы."],
+  ["Netoli Vilniaus yra Trakai, kur ant ežero salos stovi graži pilis.", "Недалеко от Вильнюса находятся Тракай, где на острове посреди озера стоит красивый замок."],
+  ["Trakuose būtinai reikia paragauti kibinų.", "В Тракай обязательно нужно попробовать кибины."],
+  ["Gyventi Vilniuje nėra pigu, nes butai ir nuoma brangūs.", "Жить в Вильнюсе недёшево, потому что квартиры и аренда дорогие."],
+  ["Man Vilnius labai patinka.", "Мне Вильнюс очень нравится."]
+ ]},
+ { lt:"Metų laikai ir oras", ru:"Времена года и погода", s:[
+  ["Lietuvoje yra keturi metų laikai: pavasaris, vasara, ruduo ir žiema.", "В Литве четыре времени года: весна, лето, осень и зима."],
+  ["Pavasaris prasideda kovo mėnesį.", "Весна начинается в марте."],
+  ["Pavasarį tirpsta sniegas, žydi medžiai, dienos ilgėja.", "Весной тает снег, цветут деревья, дни становятся длиннее."],
+  ["Grįžta paukščiai, pavyzdžiui, gandrai.", "Возвращаются птицы, например, аисты."],
+  ["Vasara yra šilčiausias metų laikas.", "Лето — самое тёплое время года."],
+  ["Vasarą būna šilta, kartais net karšta.", "Летом тепло, иногда даже жарко."],
+  ["Žmonės ilsisi prie ežerų ir prie jūros.", "Люди отдыхают на озёрах и на море."],
+  ["Rudenį dažnai lyja ir pučia vėjas.", "Осенью часто идёт дождь и дует ветер."],
+  ["Medžių lapai pagelsta ir nukrenta.", "Листья на деревьях желтеют и опадают."],
+  ["Žiemą sninga ir būna šalta, kartais net dvidešimt laipsnių šalčio.", "Зимой идёт снег и холодно, иногда даже двадцать градусов мороза."],
+  ["Žiemą dienos būna trumpos, o naktys ilgos.", "Зимой дни короткие, а ночи длинные."],
+  ["Pavasarį žmonės pradeda dirbti soduose ir daržuose.", "Весной люди начинают работать в садах и огородах."],
+  ["Kovo vienuoliktąją Lietuva švenčia Nepriklausomybės atkūrimo dieną.", "Одиннадцатого марта Литва празднует День восстановления независимости."],
+  ["Pavasarį švenčiamos Velykos, per jas marginame kiaušinius.", "Весной празднуют Пасху, на неё мы красим яйца."],
+  ["Vasara Lietuvoje būna trumpa, bet graži.", "Лето в Литве короткое, но красивое."],
+  ["Birželio dvidešimt ketvirtąją švenčiamos Joninės.", "Двадцать четвёртого июня празднуют Йонинес."],
+  ["Per Jonines žmonės kuria laužus ir ieško paparčio žiedo.", "На Йонинес люди разжигают костры и ищут цветок папоротника."],
+  ["Liepos ir rugpjūčio mėnesiais daug žmonių atostogauja.", "В июле и августе многие люди в отпуске."],
+  ["Rugsėjo pirmąją vaikai eina į mokyklą.", "Первого сентября дети идут в школу."],
+  ["Rudenį miškuose galima rinkti grybus.", "Осенью в лесах можно собирать грибы."],
+  ["Žiemą reikia šiltai rengtis ir atsargiai vairuoti, nes keliai būna slidūs.", "Зимой нужно тепло одеваться и осторожно водить, потому что дороги скользкие."],
+  ["Didžiausios žiemos šventės yra Kūčios ir Kalėdos.", "Самые большие зимние праздники — Кучюс (Сочельник) и Рождество."],
+  ["Kūčių vakarą ant stalo būna dvylika patiekalų.", "В вечер Кучюс на столе бывает двенадцать блюд."],
+  ["Pastaraisiais metais žiemos Lietuvoje šiltesnės, sniego mažiau.", "В последние годы зимы в Литве теплее, снега меньше."],
+  ["Mano mėgstamiausias metų laikas yra vasara, nes galima ilgai būti lauke.", "Моё любимое время года — лето, потому что можно долго быть на улице."],
+  ["Man nepatinka vėlyvas ruduo, nes būna tamsu ir drėgna.", "Мне не нравится поздняя осень, потому что темно и сыро."],
+  ["Prieš išeidamas iš namų, visada pasižiūriu orų prognozę telefone.", "Перед выходом из дома всегда смотрю прогноз погоды в телефоне."],
+  ["Jei žada lietų, pasiimu skėtį.", "Если обещают дождь, беру зонт."]
+ ]},
+ { lt:"Mano darbas", ru:"Моя работа", s:[
+  ["Aš dirbu automobilių diagnostikos srityje.", "Я работаю в сфере диагностики автомобилей."],
+  ["Daugiausia dirbu su elektromobiliais ir sunkvežimiais.", "В основном работаю с электромобилями и грузовиками."],
+  ["Mano darbo diena prasideda devintą valandą ryto.", "Мой рабочий день начинается в девять часов утра."],
+  ["Į darbą važiuoju automobiliu.", "На работу езжу на машине."],
+  ["Pirmiausia pasikalbu su klientu ir išklausau, kokia yra problema.", "Сначала разговариваю с клиентом и выслушиваю, в чём проблема."],
+  ["Paskui prijungiu kompiuterį ir patikrinu automobilio sistemas.", "Потом подключаю компьютер и проверяю системы автомобиля."],
+  ["Dažnai reikia ieškoti elektros gedimų, tai yra sudėtingas darbas.", "Часто нужно искать неисправности в электрике, это сложная работа."],
+  ["Kai randu gedimą, jį pašalinu arba pakeičiu sugedusią detalę.", "Когда нахожу неисправность, устраняю её или меняю сломанную деталь."],
+  ["Pietų pertrauka būna apie pirmą valandą.", "Обеденный перерыв около часа дня."],
+  ["Darbas baigiasi šeštą valandą vakaro.", "Работа заканчивается в шесть часов вечера."],
+  ["Dirbu kartu su kolegomis, mes padedame vieni kitiems.", "Я работаю вместе с коллегами, мы помогаем друг другу."],
+  ["Mano kolegos yra draugiški ir patyrę.", "Мои коллеги дружелюбные и опытные."],
+  ["Darbe naudoju kompiuterį, diagnostikos įrangą ir įvairius įrankius.", "На работе использую компьютер, диагностическое оборудование и разные инструменты."],
+  ["Elektromobiliuose yra aukšta įtampa, todėl būtina laikytis saugumo taisyklių.", "В электромобилях высокое напряжение, поэтому обязательно соблюдать правила безопасности."],
+  ["Dirbdamas visada dėviu specialias pirštines ir darbo drabužius.", "Во время работы всегда ношу специальные перчатки и рабочую одежду."],
+  ["Kartais reikia skaityti schemas ir techninę dokumentaciją anglų kalba.", "Иногда нужно читать схемы и техническую документацию на английском."],
+  ["Šiuolaikiniuose automobiliuose yra daug elektronikos ir kompiuterių.", "В современных автомобилях много электроники и компьютеров."],
+  ["Todėl mano darbe reikia nuolat mokytis naujų dalykų.", "Поэтому в моей работе нужно постоянно учиться новому."],
+  ["Kartais skaitau apie naujas technologijas internete.", "Иногда читаю о новых технологиях в интернете."],
+  ["Su klientais dažnai kalbu lietuviškai, todėl man reikia gerai mokėti kalbą.", "С клиентами часто говорю по-литовски, поэтому мне нужно хорошо знать язык."],
+  ["Kartais klientai skuba ir nori, kad remontas būtų atliktas greitai.", "Иногда клиенты спешат и хотят, чтобы ремонт сделали быстро."],
+  ["Tada reikia būti mandagiam ir paaiškinti, kiek laiko užtruks darbas.", "Тогда нужно быть вежливым и объяснить, сколько времени займёт работа."],
+  ["Mano darbe svarbu būti atidžiam ir kantriam.", "В моей работе важно быть внимательным и терпеливым."],
+  ["Kartais darbas būna sunkus, ypač kai gedimas yra retas.", "Иногда работа бывает тяжёлой, особенно когда неисправность редкая."],
+  ["Bet man patinka, kad kiekviena diena yra skirtinga.", "Но мне нравится, что каждый день разный."],
+  ["Malonu, kai klientas išvažiuoja patenkintas.", "Приятно, когда клиент уезжает довольным."],
+  ["Atlyginimą gaunu kartą per mėnesį į banko sąskaitą.", "Зарплату получаю раз в месяц на банковский счёт."],
+  ["Atostogų turiu keturias savaites per metus.", "Отпуска у меня четыре недели в год."],
+  ["Atostogas dažniausiai leidžiu keliaudamas.", "Отпуск чаще всего провожу в путешествиях."],
+  ["Ateityje norėčiau kurti savo elektronikos prietaisus.", "В будущем я хотел бы создавать свои электронные устройства."]
+ ]},
+ { lt:"Laisvalaikis", ru:"Свободное время", s:[
+  ["Laisvo laiko turiu nedaug, bet stengiuosi jį leisti įdomiai.", "Свободного времени у меня немного, но я стараюсь проводить его интересно."],
+  ["Mano didžiausias pomėgis yra elektronika.", "Моё самое большое увлечение — электроника."],
+  ["Aš kuriu įvairius prietaisus ir projektuoju elektronines plokštes.", "Я делаю разные устройства и проектирую электронные платы."],
+  ["Dabar iš seno automobilio „Mini“ darau elektromobilį.", "Сейчас я делаю электромобиль из старого автомобиля «Мини»."],
+  ["Šiam projektui naudoju motociklo elektros variklį ir bateriją.", "Для этого проекта использую электромотор и батарею от мотоцикла."],
+  ["Tai sudėtingas, bet labai įdomus darbas.", "Это сложная, но очень интересная работа."],
+  ["Kai projektas bus baigtas, noriu juo pasivažinėti po Lietuvą.", "Когда проект будет закончен, хочу покататься на нём по Литве."],
+  ["Kartais internete žiūriu vaizdo įrašus apie elektroniką ir automobilius.", "Иногда смотрю в интернете видео об электронике и автомобилях."],
+  ["Savaitgaliais mėgstu važiuoti į gamtą.", "По выходным люблю ездить на природу."],
+  ["Vasarą maudausi ežere, o žiemą vaikštau po mišką.", "Летом купаюсь в озере, а зимой гуляю по лесу."],
+  ["Kartais einu į sporto klubą arba bėgioju parke.", "Иногда хожу в спортзал или бегаю в парке."],
+  ["Sportas padeda man jaustis geriau.", "Спорт помогает мне чувствовать себя лучше."],
+  ["Vasarą mėgstu važinėti dviračiu ir žvejoti prie ežero.", "Летом люблю кататься на велосипеде и рыбачить на озере."],
+  ["Rudenį kartais renku grybus miške.", "Осенью иногда собираю грибы в лесу."],
+  ["Lietuvoje daug gražių vietų: ežerų, miškų ir pajūris.", "В Литве много красивых мест: озёра, леса и побережье."],
+  ["Mano mėgstamiausia vieta Lietuvoje yra Kuršių nerija.", "Моё любимое место в Литве — Куршская коса."],
+  ["Ten labai gražios kopos ir švari jūra.", "Там очень красивые дюны и чистое море."],
+  ["Vakarais kartais žiūriu filmus arba skaitau knygas.", "По вечерам иногда смотрю фильмы или читаю книги."],
+  ["Man patinka komedijos ir dokumentiniai filmai.", "Мне нравятся комедии и документальные фильмы."],
+  ["Kartais einu į kiną arba į koncertą.", "Иногда хожу в кино или на концерт."],
+  ["Su draugais susitinkame kavinėje arba pas mane namuose.", "С друзьями встречаемся в кафе или у меня дома."],
+  ["Man taip pat labai patinka keliauti.", "Ещё мне очень нравится путешествовать."],
+  ["Šį rudenį buvau Italijoje, Romoje.", "Этой осенью я был в Италии, в Риме."],
+  ["Kartais mėgstu tiesiog pabūti namie ir nieko neveikti.", "Иногда люблю просто побыть дома и ничего не делать."],
+  ["Kitą vasarą norėčiau nuvažiuoti į Norvegiją.", "Следующим летом хотел бы съездить в Норвегию."],
+  ["Manau, kad laisvalaikis yra svarbus, nes po darbo reikia pailsėti.", "Я думаю, что свободное время важно, потому что после работы нужно отдохнуть."]
+ ]},
+ { lt:"Kelionės ir transportas", ru:"Путешествия и транспорт", s:[
+  ["Aš mėgstu keliauti ir pamatyti naujas vietas.", "Я люблю путешествовать и видеть новые места."],
+  ["Po miestą dažniausiai važiuoju automobiliu.", "По городу чаще всего езжу на машине."],
+  ["Kartais važiuoju autobusu arba troleibusu.", "Иногда езжу на автобусе или троллейбусе."],
+  ["Bilietą galima nusipirkti programėlėje arba kioske.", "Билет можно купить в приложении или в киоске."],
+  ["Į kitus Lietuvos miestus galima važiuoti traukiniu arba autobusu.", "В другие города Литвы можно ехать на поезде или автобусе."],
+  ["Į kitas šalis dažniausiai skrendu lėktuvu.", "В другие страны обычно летаю самолётом."],
+  ["Prieš kelionę bilietus perku internetu.", "Перед поездкой покупаю билеты через интернет."],
+  ["Taip pat iš anksto užsisakau viešbutį.", "Также заранее бронирую гостиницу."],
+  ["Visada pasiruošiu dokumentus: pasą arba asmens tapatybės kortelę.", "Всегда готовлю документы: паспорт или ID-карту."],
+  ["Lagamine vežu drabužius, batus ir būtiniausius daiktus.", "В чемодане везу одежду, обувь и самые нужные вещи."],
+  ["Lėktuvu skristi greita ir patogu, bet bilietai kartais brangūs.", "Лететь самолётом быстро и удобно, но билеты иногда дорогие."],
+  ["Oro uoste reikia būti bent dvi valandas prieš skrydį.", "В аэропорту нужно быть хотя бы за два часа до вылета."],
+  ["Pirmiausia reikia užsiregistruoti skrydžiui ir atiduoti bagažą.", "Сначала нужно зарегистрироваться на рейс и сдать багаж."],
+  ["Paskui reikia praeiti saugumo patikrą.", "Потом нужно пройти досмотр."],
+  ["Į lėktuvą galima pasiimti tik nedidelį rankinį bagažą.", "В самолёт можно взять только небольшую ручную кладь."],
+  ["Šį rudenį skridau iš Vilniaus į Romą.", "Этой осенью я летал из Вильнюса в Рим."],
+  ["Romoje aplankiau senamiestį, Koliziejų ir muziejus.", "В Риме я посетил старый город, Колизей и музеи."],
+  ["Iš Vilniaus į Romą skridome apie dvi su puse valandos.", "Из Вильнюса в Рим мы летели около двух с половиной часов."],
+  ["Romos oro uoste nusipirkome bilietus į traukinį ir nuvažiavome į miesto centrą.", "В аэропорту Рима купили билеты на поезд и поехали в центр города."],
+  ["Gyvenome nedideliame viešbutyje netoli centro.", "Жили в небольшой гостинице недалеко от центра."],
+  ["Kambarys buvo mažas, bet švarus ir patogus.", "Номер был маленький, но чистый и удобный."],
+  ["Kiekvieną dieną daug vaikščiojome pėsčiomis.", "Каждый день много ходили пешком."],
+  ["Romoje labai daug turistų, ypač prie garsių vietų.", "В Риме очень много туристов, особенно у известных мест."],
+  ["Paskui kelias dienas ilsėjausi prie jūros.", "Потом несколько дней отдыхал у моря."],
+  ["Jūros vanduo dar buvo šiltas, todėl galėjome maudytis.", "Вода в море была ещё тёплой, поэтому можно было купаться."],
+  ["Italijoje man labai patiko maistas ir šiltas oras.", "В Италии мне очень понравились еда и тёплая погода."],
+  ["Lietuvoje mėgstu keliauti automobiliu, pavyzdžiui, į Kauną ar Klaipėdą.", "По Литве люблю ездить на машине, например в Каунас или Клайпеду."],
+  ["Kitą kartą norėčiau į Italiją nuvažiuoti automobiliu.", "В следующий раз хотел бы поехать в Италию на машине."],
+  ["Kelionės man padeda pailsėti ir pamatyti ką nors nauja.", "Путешествия помогают мне отдохнуть и увидеть что-то новое."]
+ ]},
+ { lt:"Draugai ir bendravimas", ru:"Друзья и общение", s:[
+  ["Aš turiu kelis gerus draugus.", "У меня есть несколько хороших друзей."],
+  ["Su kai kuriais iš jų susipažinau darbe.", "С некоторыми из них я познакомился на работе."],
+  ["Mano geriausio draugo vardas Andrius.", "Моего лучшего друга зовут Андрюс."],
+  ["Mes pažįstami jau daug metų.", "Мы знакомы уже много лет."],
+  ["Jis yra linksmas, protingas ir visada pasiruošęs padėti.", "Он весёлый, умный и всегда готов помочь."],
+  ["Mes abu domimės automobiliais ir technika.", "Мы оба интересуемся автомобилями и техникой."],
+  ["Andrius yra vedęs ir turi du vaikus.", "Андрюс женат, у него двое детей."],
+  ["Jis gyvena Kaune, todėl matomės ne taip dažnai.", "Он живёт в Каунасе, поэтому видимся не так часто."],
+  ["Kai susitinkame, visada turime daug apie ką pasikalbėti.", "Когда встречаемся, нам всегда есть о чём поговорить."],
+  ["Kalbamės apie darbą, automobilius ir gyvenimą.", "Говорим о работе, машинах и жизни."],
+  ["Lietuvoje susiradau ir naujų draugų lietuvių.", "В Литве я нашёл и новых друзей-литовцев."],
+  ["Su jais kalbuosi lietuviškai, ir tai man padeda mokytis kalbos.", "С ними я говорю по-литовски, и это помогает мне учить язык."],
+  ["Jie man papasakojo apie lietuviškas tradicijas ir šventes.", "Они рассказали мне о литовских традициях и праздниках."],
+  ["Dažniausiai bendraujame telefonu arba žinutėmis.", "Чаще всего общаемся по телефону или сообщениями."],
+  ["Savaitgalį kartais kviečiu draugus pas save į svečius.", "На выходных иногда приглашаю друзей к себе в гости."],
+  ["Kartu gaminame vakarienę, kalbamės ir žiūrime krepšinį.", "Вместе готовим ужин, разговариваем и смотрим баскетбол."],
+  ["Kartais kartu važiuojame į gamtą arba žvejoti.", "Иногда вместе ездим на природу или на рыбалку."],
+  ["Kai kviečiu draugus, paprastai iš anksto parašau žinutę arba paskambinu.", "Когда приглашаю друзей, обычно заранее пишу сообщение или звоню."],
+  ["Pavyzdžiui, sakau: „Gal nori šeštadienį ateiti pas mane vakarienės?“", "Например, говорю: «Хочешь в субботу прийти ко мне на ужин?»"],
+  ["Jei draugas sutinka, susitariame dėl laiko.", "Если друг соглашается, договариваемся о времени."],
+  ["Kartais draugai pakviečia mane į vestuves arba į krikštynas.", "Иногда друзья приглашают меня на свадьбу или на крестины."],
+  ["Jei draugas kviečia į gimtadienį, aš visada stengiuosi ateiti.", "Если друг приглашает на день рождения, я всегда стараюсь прийти."],
+  ["Į gimtadienį nuperku dovaną arba gėlių.", "На день рождения покупаю подарок или цветы."],
+  ["Jei negaliu ateiti, paskambinu ir atsiprašau.", "Если не могу прийти, звоню и извиняюсь."],
+  ["Draugai man padeda, o aš padedu jiems.", "Друзья помогают мне, а я помогаю им."],
+  ["Su draugais, kurie gyvena kitose šalyse, bendraujame internetu.", "С друзьями, которые живут в других странах, общаемся через интернет."],
+  ["Svarbu nepamiršti pasveikinti draugų su gimtadieniu.", "Важно не забывать поздравлять друзей с днём рождения."],
+  ["Draugystė man labai svarbi, nes be draugų gyvenimas būtų nuobodus.", "Дружба для меня очень важна, потому что без друзей жизнь была бы скучной."],
+  ["Manau, kad tikras draugas yra tas, kuris padeda sunkią minutę.", "Я думаю, что настоящий друг — тот, кто помогает в трудную минуту."]
+ ]},
+ { lt:"Sveikata", ru:"Здоровье", s:[
+  ["Manau, kad sveikata yra svarbiausia.", "Я думаю, что здоровье — самое важное."],
+  ["Kad būčiau sveikas, stengiuosi daug judėti ir gerai išsimiegoti.", "Чтобы быть здоровым, стараюсь много двигаться и хорошо высыпаться."],
+  ["Valgau daug daržovių ir vaisių, geriu daug vandens.", "Ем много овощей и фруктов, пью много воды."],
+  ["Stengiuosi nevalgyti per daug saldumynų.", "Стараюсь не есть слишком много сладкого."],
+  ["Kasdien stengiuosi bent pusvalandį vaikščioti pėsčiomis.", "Каждый день стараюсь хотя бы полчаса ходить пешком."],
+  ["Ilgai sėdint prie kompiuterio, pradeda skaudėti nugarą ir akis.", "Если долго сидеть за компьютером, начинают болеть спина и глаза."],
+  ["Todėl darbe darau trumpas pertraukas.", "Поэтому на работе делаю короткие перерывы."],
+  ["Aš nerūkau ir beveik negeriu alkoholio.", "Я не курю и почти не пью алкоголь."],
+  ["Žiemą kartais peršąlu: skauda gerklę, būna sloga ir temperatūra.", "Зимой иногда простужаюсь: болит горло, насморк и температура."],
+  ["Tada geriu arbatą su medumi ir ilsiuosi namuose.", "Тогда пью чай с мёдом и отдыхаю дома."],
+  ["Lietuvoje kiekvienas turi savo šeimos gydytoją poliklinikoje.", "В Литве у каждого есть свой семейный врач в поликлинике."],
+  ["Norint nemokamai gydytis, reikia turėti privalomąjį sveikatos draudimą.", "Чтобы лечиться бесплатно, нужна обязательная медицинская страховка."],
+  ["Pas gydytoją galima užsiregistruoti telefonu arba internetu.", "К врачу можно записаться по телефону или через интернет."],
+  ["Kartais tenka laukti kelias dienas.", "Иногда приходится ждать несколько дней."],
+  ["Jei liga rimtesnė, skambinu į polikliniką ir užsiregistruoju pas gydytoją.", "Если болезнь серьёзнее, звоню в поликлинику и записываюсь к врачу."],
+  ["Gydytojas mane apžiūri ir klausia, kas skauda.", "Врач меня осматривает и спрашивает, что болит."],
+  ["Gydytojui reikia papasakoti, kas skauda ir kada prasidėjo liga.", "Врачу нужно рассказать, что болит и когда началась болезнь."],
+  ["Pavyzdžiui: „Man skauda galvą ir gerklę, turiu aukštą temperatūrą.“", "Например: «У меня болит голова и горло, высокая температура»."],
+  ["Jei reikia, gydytojas siunčia atlikti kraujo tyrimų.", "Если нужно, врач направляет сдать анализы крови."],
+  ["Kartais jis išrašo receptą vaistams.", "Иногда он выписывает рецепт на лекарства."],
+  ["Vaistus perku vaistinėje.", "Лекарства покупаю в аптеке."],
+  ["Vaistininkas paaiškina, kaip vartoti vaistus.", "Фармацевт объясняет, как принимать лекарства."],
+  ["Kai kurie vaistai parduodami be recepto, pavyzdžiui, nuo galvos skausmo.", "Некоторые лекарства продаются без рецепта, например, от головной боли."],
+  ["Jei sergu ilgiau, gydytojas išduoda nedarbingumo pažymėjimą.", "Если болею дольше, врач выдаёт больничный."],
+  ["Kartą per metus einu pas odontologą.", "Раз в год хожу к стоматологу."],
+  ["Žiemą verta pasiskiepyti nuo gripo.", "Зимой стоит сделать прививку от гриппа."],
+  ["Taip pat svarbu laikytis higienos ir dažnai plauti rankas.", "Также важно соблюдать гигиену и часто мыть руки."],
+  ["Nelaimės atveju reikia skambinti bendruoju pagalbos telefonu 112.", "В экстренном случае нужно звонить по единому номеру помощи 112."]
+ ]},
+ { lt:"Kodėl mokausi lietuvių kalbos", ru:"Почему я учу литовский", s:[
+  ["Aš mokausi lietuvių kalbos, nes gyvenu ir dirbu Lietuvoje.", "Я учу литовский язык, потому что живу и работаю в Литве."],
+  ["Man reikia išlaikyti valstybinės kalbos egzaminą.", "Мне нужно сдать экзамен по государственному языку."],
+  ["Egzaminą sudaro keturios dalys: skaitymas, klausymas, rašymas ir kalbėjimas.", "Экзамен состоит из четырёх частей: чтение, аудирование, письмо и говорение."],
+  ["Man sunkiausia yra klausymas, nes lietuviai kalba greitai.", "Мне труднее всего аудирование, потому что литовцы говорят быстро."],
+  ["Kalbėjimo dalyje reikia papasakoti apie save ir atsakyti į egzaminuotojo klausimus.", "В части говорения нужно рассказать о себе и ответить на вопросы экзаменатора."],
+  ["Todėl kartoju temas apie šeimą, darbą, namus ir laisvalaikį.", "Поэтому повторяю темы о семье, работе, доме и свободном времени."],
+  ["Be to, noriu laisvai bendrauti su kolegomis, klientais ir kaimynais.", "Кроме того, хочу свободно общаться с коллегами, клиентами и соседями."],
+  ["Lietuvių kalba yra viena seniausių kalbų Europoje.", "Литовский язык — один из древнейших языков Европы."],
+  ["Ji graži, bet nelengva.", "Он красивый, но нелёгкий."],
+  ["Sunkiausia yra gramatika, nes yra daug linksnių ir galūnių.", "Сложнее всего грамматика, потому что много падежей и окончаний."],
+  ["Taip pat sunku teisingai kirčiuoti žodžius.", "Также трудно правильно ставить ударения."],
+  ["Lietuvių kalboje yra septyni linksniai.", "В литовском языке семь падежей."],
+  ["Pavyzdžiui, žodis „namas“ turi daug formų: namo, namui, namą, namu, name.", "Например, у слова «намас» (дом) много форм: намо, намуи, нама, наму, наме."],
+  ["Veiksmažodžiai irgi keičiasi pagal asmenį ir laiką.", "Глаголы тоже меняются по лицам и временам."],
+  ["Kai kurie žodžiai panašūs į rusiškus, todėl juos lengviau įsiminti.", "Некоторые слова похожи на русские, поэтому их легче запомнить."],
+  ["Mokausi pagal vadovėlį „Langas“.", "Учусь по учебнику «Лангас»."],
+  ["Mokausi kiekvieną dieną: klausausi, skaitau ir kartoju tekstus.", "Занимаюсь каждый день: слушаю, читаю и повторяю тексты."],
+  ["Kartais žiūriu lietuviškas laidas ir klausausi radijo.", "Иногда смотрю литовские передачи и слушаю радио."],
+  ["Naujus žodžius rašau į sąsiuvinį ir kartoju juos kelis kartus per dieną.", "Новые слова записываю в тетрадь и повторяю их несколько раз в день."],
+  ["Kartais skaitau lietuviškus straipsnius internete.", "Иногда читаю литовские статьи в интернете."],
+  ["Kai nesuprantu žodžio, ieškau jo žodyne arba paklausiu.", "Когда не понимаю слово, ищу его в словаре или спрашиваю."],
+  ["Kalbėti lietuviškai man padeda darbas ir draugai.", "Говорить по-литовски мне помогают работа и друзья."],
+  ["Lietuviai visada džiaugiasi, kai užsienietis bando kalbėti lietuviškai.", "Литовцы всегда радуются, когда иностранец пытается говорить по-литовски."],
+  ["Jie man padeda ir pataiso mano klaidas.", "Они мне помогают и исправляют мои ошибки."],
+  ["Nebijau daryti klaidų, nes iš jų mokausi.", "Я не боюсь ошибаться, потому что учусь на ошибках."],
+  ["Išlaikęs egzaminą, noriu mokytis toliau ir pasiekti B1 lygį.", "Сдав экзамен, хочу учиться дальше и достичь уровня B1."],
+  ["Tikiuosi, kad egzaminą išlaikysiu gerai.", "Надеюсь, что сдам экзамен хорошо."]
+ ]},
+ { lt:"Maistas ir parduotuvė", ru:"Еда и магазин", s:[
+  ["Maistą dažniausiai perku prekybos centre, paprastai savaitgalį.", "Продукты чаще всего покупаю в торговом центре, обычно на выходных."],
+  ["Kartais einu į turgų, ten galima nusipirkti šviežių daržovių ir vaisių.", "Иногда хожу на рынок, там можно купить свежие овощи и фрукты."],
+  ["Paprastai perku duoną, pieną, sūrį, mėsą, kiaušinius, daržoves ir vaisius.", "Обычно покупаю хлеб, молоко, сыр, мясо, яйца, овощи и фрукты."],
+  ["Prieš eidamas į parduotuvę, pasirašau pirkinių sąrašą.", "Перед походом в магазин пишу список покупок."],
+  ["Parduotuvėje moku kortele, kartais grynaisiais pinigais.", "В магазине плачу картой, иногда наличными."],
+  ["Prekybos centre paimu vežimėlį arba krepšelį.", "В торговом центре беру тележку или корзину."],
+  ["Daržoves ir vaisius pasisveriu.", "Овощи и фрукты взвешиваю."],
+  ["Pieno skyriuje perku pieną, jogurtą, varškę ir grietinę.", "В молочном отделе покупаю молоко, йогурт, творог и сметану."],
+  ["Mėsos skyriuje perku vištieną arba kiaulieną.", "В мясном отделе покупаю курицу или свинину."],
+  ["Kai kurios prekės būna su nuolaida, tada perku daugiau.", "Некоторые товары бывают со скидкой, тогда покупаю больше."],
+  ["Prie kasos sudedu prekes į maišelį ir sumoku.", "На кассе складываю товары в пакет и плачу."],
+  ["Turguje galima paklausti: „Kiek kainuoja kilogramas obuolių?“", "На рынке можно спросить: «Сколько стоит килограмм яблок?»"],
+  ["Pusryčiams valgau košę arba kiaušinienę ir geriu kavą.", "На завтрак ем кашу или яичницу и пью кофе."],
+  ["Pietus valgau darbe arba kavinėje.", "Обедаю на работе или в кафе."],
+  ["Dažniausiai valgau sriubą ir antrąjį patiekalą.", "Чаще всего ем суп и второе блюдо."],
+  ["Vakarienę mėgstu gaminti namuose.", "Ужин люблю готовить дома."],
+  ["Man labai patinka lietuviški cepelinai ir šaltibarščiai.", "Мне очень нравятся литовские цеппелины и холодный борщ."],
+  ["Cepelinai gaminami iš bulvių ir mėsos.", "Цеппелины делают из картофеля и мяса."],
+  ["Šaltibarščiai yra šalta burokėlių sriuba, kurią valgome vasarą.", "Шальтибарщай — это холодный свекольный суп, который едят летом."],
+  ["Savaitgalį kartais gaminu ką nors ypatingo, pavyzdžiui, troškinį arba kepsnį.", "На выходных иногда готовлю что-то особенное, например, рагу или жаркое."],
+  ["Lietuviai labai mėgsta bulves, jos valgomos beveik kiekvieną dieną.", "Литовцы очень любят картошку, её едят почти каждый день."],
+  ["Kitas populiarus lietuviškas patiekalas yra kugelis.", "Ещё одно популярное литовское блюдо — кугелис."],
+  ["Šventėms dažnai kepamas šakotis.", "На праздники часто пекут шакотис."],
+  ["Man patinka ir itališka virtuvė, ypač pica ir makaronai.", "Мне нравится и итальянская кухня, особенно пицца и паста."],
+  ["Kartais su draugais einame į restoraną.", "Иногда с друзьями ходим в ресторан."],
+  ["Restorane užsisakau patiekalą, o pabaigoje prašau sąskaitos.", "В ресторане заказываю блюдо, а в конце прошу счёт."],
+  ["Restorane paprastai paliekame arbatpinigių.", "В ресторане обычно оставляем чаевые."],
+  ["Manau, kad sveikas ir skanus maistas yra labai svarbus.", "Я думаю, что здоровая и вкусная еда очень важна."]
+ ]},
+ { lt:"Drabužiai", ru:"Одежда", s:[
+  ["Drabužius perku nedažnai, dažniausiai prekybos centre arba internetu.", "Одежду покупаю нечасто, обычно в торговом центре или в интернете."],
+  ["Darbe dėviu patogius darbo drabužius ir batus.", "На работе ношу удобную рабочую одежду и обувь."],
+  ["Laisvalaikiu mėgstu džinsus, marškinėlius, megztinį ir sportbačius.", "В свободное время люблю джинсы, футболку, свитер и кроссовки."],
+  ["Darbo drabužius man duoda darbdavys.", "Рабочую одежду мне выдаёт работодатель."],
+  ["Batai darbe turi būti tvirti ir saugūs.", "Обувь на работе должна быть прочной и безопасной."],
+  ["Namuose dėviu patogias kelnes ir marškinėlius.", "Дома ношу удобные штаны и футболку."],
+  ["Į šventę ar į teatrą vilkiu kostiumą ir marškinius.", "На праздник или в театр надеваю костюм и рубашку."],
+  ["Vasarą nešioju šortus ir lengvus marškinėlius.", "Летом ношу шорты и лёгкие футболки."],
+  ["Žiemą Lietuvoje reikia šiltos striukės, kepurės, šaliko ir pirštinių.", "Зимой в Литве нужны тёплая куртка, шапка, шарф и перчатки."],
+  ["Rudenį svarbu turėti neperšlampamus batus ir skėtį.", "Осенью важно иметь непромокаемую обувь и зонт."],
+  ["Prieš pirkdamas drabužius, aš juos pasimatuoju.", "Перед покупкой одежды я её примеряю."],
+  ["Jei drabužis per mažas, klausiu pardavėjo: „Ar turite didesnį dydį?“", "Если вещь мала, спрашиваю продавца: «У вас есть размер побольше?»"],
+  ["Taip pat klausiu, kiek kainuoja ir ar yra nuolaida.", "Ещё спрашиваю, сколько стоит и есть ли скидка."],
+  ["Parduotuvėje pardavėja paklausia: „Kuo galiu padėti?“", "В магазине продавщица спрашивает: «Чем могу помочь?»"],
+  ["Aš atsakau: „Ieškau šiltos žieminės striukės.“", "Я отвечаю: «Ищу тёплую зимнюю куртку»."],
+  ["Tada pasimatuoju kelias striukes ir išsirenku vieną.", "Потом примеряю несколько курток и выбираю одну."],
+  ["Internetu pirkti patogu, bet kartais dydis netinka.", "Покупать в интернете удобно, но иногда размер не подходит."],
+  ["Tada drabužį tenka grąžinti ir susigrąžinti pinigus.", "Тогда вещь приходится вернуть и получить деньги обратно."],
+  ["Drabužiai pigesni per išpardavimus.", "Одежда дешевле во время распродаж."],
+  ["Mano mėgstamiausia spalva yra mėlyna.", "Мой любимый цвет — синий."],
+  ["Man svarbu, kad drabužiai būtų patogūs ir kokybiški.", "Мне важно, чтобы одежда была удобной и качественной."],
+  ["Mėgstu paprastus tamsių spalvų drabužius: juodus, pilkus, mėlynus.", "Люблю простую одежду тёмных цветов: чёрную, серую, синюю."],
+  ["Ryškių spalvų drabužių beveik neturiu.", "Ярких вещей у меня почти нет."],
+  ["Kartą per metus peržiūriu spintą ir atiduodu senus drabužius.", "Раз в год разбираю шкаф и отдаю старую одежду."],
+  ["Senus drabužius galima palikti specialiuose konteineriuose.", "Старую одежду можно оставить в специальных контейнерах."],
+  ["Mada man nėra labai svarbi.", "Мода для меня не очень важна."]
+ ]},
+ { lt:"Paslaugos: autoservisas, bankas, paštas", ru:"Услуги: автосервис, банк, почта", s:[
+  ["Kai sugenda automobilis, važiuoju į autoservisą.", "Когда ломается машина, еду в автосервис."],
+  ["Pirmiausia užsiregistruoju telefonu.", "Сначала записываюсь по телефону."],
+  ["Meistras patikrina automobilį ir pasako, kiek kainuos remontas.", "Мастер проверяет машину и говорит, сколько будет стоить ремонт."],
+  ["Klientai dažnai klausia: „Kada bus paruoštas automobilis?“", "Клиенты часто спрашивают: «Когда машина будет готова?»"],
+  ["Prieš žiemą reikia pakeisti vasarines padangas žieminėmis.", "Перед зимой нужно поменять летние шины на зимние."],
+  ["Lietuvoje žieminės padangos privalomos nuo lapkričio dešimtosios iki kovo pabaigos.", "В Литве зимние шины обязательны с десятого ноября до конца марта."],
+  ["Jei automobilis nešvarus, važiuoju į plovyklą.", "Если машина грязная, еду на мойку."],
+  ["Automobiliui reikia reguliariai atlikti techninę apžiūrą.", "Автомобилю нужно регулярно проходить техосмотр."],
+  ["Kai perki automobilį, jį reikia įregistruoti „Regitroje“.", "Когда покупаешь машину, её нужно зарегистрировать в «Регитре»."],
+  ["Degalinėje pilu degalus, kartais perku kavą ir moku kortele.", "На заправке заливаю топливо, иногда покупаю кофе и плачу картой."],
+  ["Banke aš atsidariau sąskaitą ir gavau mokėjimo kortelę.", "В банке я открыл счёт и получил платёжную карту."],
+  ["Dabar dažniausiai moku internetu arba telefonu.", "Сейчас чаще всего плачу через интернет или телефон."],
+  ["Banke galima gauti paskolą arba pasikeisti valiutą.", "В банке можно получить кредит или поменять валюту."],
+  ["Grynųjų pinigų galima išsiimti iš bankomato.", "Наличные можно снять в банкомате."],
+  ["Svarbu niekam nesakyti savo kortelės PIN kodo.", "Важно никому не говорить PIN-код своей карты."],
+  ["Internetu taip pat moku už elektrą, vandenį ir telefoną.", "Через интернет также плачу за электричество, воду и телефон."],
+  ["Į paštą einu, kai reikia išsiųsti siuntinį arba laišką.", "На почту хожу, когда нужно отправить посылку или письмо."],
+  ["Pašte galima nusipirkti vokų ir pašto ženklų.", "На почте можно купить конверты и марки."],
+  ["Siunčiant siuntinį, reikia užrašyti gavėjo vardą, pavardę ir adresą.", "Отправляя посылку, нужно написать имя, фамилию и адрес получателя."],
+  ["Siuntinius dažnai atsiimu paštomate, nes tai labai patogu.", "Посылки часто забираю в почтомате, потому что это очень удобно."],
+  ["Paštomate siuntinį galima atsiimti bet kuriuo paros metu.", "В почтомате посылку можно забрать в любое время суток."],
+  ["Telefonu gaunu kodą, jį įvedu, ir dėžutė atsidaro.", "На телефон приходит код, я его ввожу, и ячейка открывается."],
+  ["Jei namuose kas nors sugenda, kviečiu meistrą.", "Если дома что-то ломается, вызываю мастера."],
+  ["Kartą per mėnesį einu į kirpyklą.", "Раз в месяц хожу в парикмахерскую."],
+  ["Į kirpyklą irgi reikia užsiregistruoti iš anksto.", "В парикмахерскую тоже нужно записываться заранее."],
+  ["Daug dokumentų galima sutvarkyti per Elektroninius valdžios vartus.", "Многие документы можно оформить через портал электронного правительства."],
+  ["Man patinka, kad Lietuvoje daug paslaugų galima gauti internetu.", "Мне нравится, что в Литве многие услуги можно получить через интернет."]
+ ]}
+];
+
+/* ---------- storage ---------- */
+const KEY="lt-temos-custom-v1", OKEY="lt-temos-edits-v1";
+function load(k,def){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):def; }catch(e){ return def; } }
+function store(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+let custom = load(KEY,[]), edits = load(OKEY,{});
+function saveAll(){ return store(KEY,custom) && store(OKEY,edits); }
+function allTopics(){
+  return BUILTIN.map((t,i)=> edits[i] ? {...edits[i],id:"b"+i,edited:true} : {...t,id:"b"+i})
+    .concat(custom.map((t,i)=>({...t,id:"c"+i,custom:true})));
+}
+function getTopic(id){ return allTopics().find(t=>t.id===id); }
+
+/* ---------- views ---------- */
+const $=id=>document.getElementById(id);
+function show(view){ ["list","player","editor","transfer"].forEach(v=>$(v).style.display = v===view?"block":"none"); window.scrollTo(0,0); }
+
+function renderList(){
+  const g=$("grid"); g.innerHTML="";
+  allTopics().forEach((t,i)=>{
+    const b=document.createElement("button"); b.className="topic";
+    b.innerHTML=`<div class="n">${t.custom?"Моя тема":"Тема "+(i+1)} · ${t.s.length} фраз${t.edited?" · ✎ изменена":""}</div><div class="lt"></div><div class="ru"></div>`;
+    b.querySelector(".lt").textContent=t.lt; b.querySelector(".ru").textContent=t.ru;
+    b.onclick=()=>openTopic(t, true);
+    g.appendChild(b);
+  });
+  const a=document.createElement("button"); a.className="topic add"; a.textContent="+ Добавить свою тему";
+  a.onclick=()=>openEditor(null); g.appendChild(a);
+  const x=document.createElement("button"); x.className="topic add"; x.textContent="⇄ Перенести правки на другое устройство";
+  x.onclick=openTransfer; g.appendChild(x);
+  const v=document.createElement("button"); v.className="topic add"; v.textContent="🔊 Озвучить правки";
+  v.onclick=()=>voiceEdits(v); g.appendChild(v);
+}
+
+/* ---------- speech ---------- */
+const synth = window.speechSynthesis || null;
+let voices=[], ltVoice=null;
+function pickVoices(){
+  if(!synth) return;
+  voices = synth.getVoices().filter(v=>/^lt/i.test(v.lang));
+  const sel=$("voiceSel"); const prev=sel.value; sel.innerHTML="";
+  voices.forEach((v,i)=>{ const o=document.createElement("option"); o.value=i; o.textContent=v.name.replace(/Microsoft |Google /,"")+(v.localService?"":" (онлайн)"); sel.appendChild(o); });
+  // prefer natural/online voices
+  let best = voices.findIndex(v=>/natural|online|neural/i.test(v.name)); if(best<0) best=0;
+  if(prev!=="" && voices[prev]) sel.value=prev; else if(voices.length) sel.value=best;
+  ltVoice = voices[sel.value] || null;
+  $("voiceRow").style.display = voices.length? "flex":"none";
+  const good = voices.some(v=>/natural|neural|online/i.test(v.name));
+  if(!Object.keys(AUDIO).length) $("voiceHint").textContent = voices.length && !good ? "Голос звучит роботизированно? Открой страничку в Microsoft Edge — там живые голоса Ona и Leonas." : "";
+  updateWarn();
+}
+function updateWarn(){
+  const w=$("warn");
+  if(!synth){ w.style.display="block"; w.innerHTML="Этот браузер не умеет озвучивать текст. Субтитры будут идти по таймеру. Лучше открыть в <b>Microsoft Edge</b> или Chrome."; return; }
+  w.style.display="none";
+}
+if(synth){ pickVoices(); synth.onvoiceschanged = pickVoices; setTimeout(pickVoices,600); setTimeout(pickVoices,2000); } else updateWarn();
+$("voiceSel").onchange=e=>{ ltVoice=voices[e.target.value]||null; if(playing){ stopSpeech(); speakCurrent(); } };
+
+/* ---------- mp3 озвучка (живой голос) ---------- */
+const player=new Audio(); player.preload="auto";
+function loadAudio(){
+  return fetch("audio/timings.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():{}).then(j=>{
+    for(const k in j){ const v=j[k]; if(v && v.text) AUDIO[v.text.trim()]={src:"audio/"+k+".mp3", w:v.w||[]}; }
+    const n=Object.keys(AUDIO).length;
+    if(n){ $("voiceHint").textContent="🔊 Живой голос Ona (mp3) — для "+n+" фраз"; }
+    return n;
+  }).catch(()=>0);
+}
+loadAudio();
+
+/* ---------- озвучка правок через GitHub ----------
+   Кнопка кладёт правки в edits.json репозитория (GitHub API, токен хранится только в этом браузере).
+   GitHub Actions (.github/workflows/voice.yml) озвучивает новые фразы и обновляет сайт. */
+const GH_REPO="sk8serg-del/temos-egzaminui", GH_TOKEN_KEY="lt-temos-gh-token";
+function missingAudio(){
+  let n=0; allTopics().forEach(t=>t.s.forEach(p=>{ if(!AUDIO[p[0].trim()]) n++; })); return n;
+}
+function b64utf8(s){ const b=new TextEncoder().encode(s); let x=""; b.forEach(c=>x+=String.fromCharCode(c)); return btoa(x); }
+async function voiceEdits(btn){
+  let token=null; try{ token=localStorage.getItem(GH_TOKEN_KEY); }catch(e){}
+  if(!token){
+    token=(prompt("Вставь GitHub-токен (доступ только к репозиторию temos-egzaminui, право Contents: Read and write). Он сохранится только в этом браузере.")||"").trim();
+    if(!token) return;
+    try{ localStorage.setItem(GH_TOKEN_KEY, token); }catch(e){}
+  }
+  const set=t=>{ btn.textContent=t; };
+  const api="https://api.github.com/repos/"+GH_REPO+"/contents/edits.json";
+  const hdr={Authorization:"Bearer "+token, Accept:"application/vnd.github+json"};
+  try{
+    set("⏳ Отправляю правки…");
+    let sha;
+    const g=await fetch(api+"?ref=main",{headers:hdr,cache:"no-store"});
+    if(g.ok) sha=(await g.json()).sha;
+    else if(g.status===401||g.status===403){ try{ localStorage.removeItem(GH_TOKEN_KEY); }catch(e){} throw new Error("токен не подходит — нажми ещё раз и вставь новый"); }
+    const body={message:"Правки со странички", content:b64utf8(JSON.stringify({custom, edits}, null, 1)), branch:"main"};
+    if(sha) body.sha=sha;
+    const p=await fetch(api,{method:"PUT",headers:hdr,body:JSON.stringify(body)});
+    if(!p.ok){ if(p.status===401||p.status===403){ try{ localStorage.removeItem(GH_TOKEN_KEY); }catch(e){} } throw new Error("GitHub ответил "+p.status); }
+  }catch(e){ set("🔊 Озвучить правки"); alert("Не получилось: "+e.message); return; }
+  // ждём, пока GitHub озвучит и обновит сайт (обычно 1–3 минуты)
+  const t0=Date.now();
+  const poll=async()=>{
+    await loadAudio();
+    const left=missingAudio();
+    if(!left){ set("✓ Всё озвучено"); setTimeout(()=>set("🔊 Озвучить правки"),5000); return; }
+    if(Date.now()-t0>8*60e3){ set("🔊 Озвучить правки"); alert("Озвучка ещё не готова ("+left+" фраз). Обнови страничку через пару минут."); return; }
+    set(`⏳ GitHub озвучивает… осталось ${left} фраз`);
+    setTimeout(poll,20000);
+  };
+  setTimeout(poll,30000); set("⏳ GitHub озвучивает…");
+}
+
+/* правки с GitHub: если в этом браузере своих правок нет — берём сохранённые в репозитории */
+if(!Object.keys(edits).length && !custom.length){
+  fetch("edits.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{
+    if(!d || typeof d.edits!=="object" || !Array.isArray(d.custom)) return;
+    if(!Object.keys(d.edits).length && !d.custom.length) return;
+    if(Object.keys(edits).length || custom.length) return;
+    edits=d.edits; custom=d.custom; saveAll();
+    if($("list").style.display!=="none") renderList();
+  }).catch(()=>{});
+}
+
+/* ---------- player state ---------- */
+let autoNext=false;
+let topic=null, idx=0, playing=false, repeat=false, hideLt=false, showRu=true, pauseBetween=false;
+let timer=null, token=0;
+let rate=parseFloat($("rate").value);
+
+function openTopic(t, autoplay){
+  stopAll(); topic=t; idx=0;
+  $("pTitleLt").textContent=t.lt; $("pTitleRu").textContent=t.ru;
+  $("editBtn").style.display="inline-block";
+  buildFull(); render(); show("player");
+  if(autoplay) play();
+}
+function buildFull(){
+  const f=$("full"); f.innerHTML="";
+  topic.s.forEach((p,i)=>{
+    const el=document.createElement("p");
+    el.innerHTML=`<span class="l"></span><span class="r"></span>`;
+    el.querySelector(".l").textContent=p[0]; el.querySelector(".r").textContent=p[1];
+    el.onclick=()=>{ goTo(i); };
+    f.appendChild(el);
+  });
+}
+function render(){
+  const [lt,ru]=topic.s[idx];
+  const box=$("subLt"); box.innerHTML="";
+  lt.split(/(\s+)/).forEach(part=>{
+    if(/^\s+$/.test(part)){ box.appendChild(document.createTextNode(part)); return; }
+    const sp=document.createElement("span"); sp.className="w"; sp.textContent=part; box.appendChild(sp);
+  });
+  box.classList.toggle("hidden-txt", hideLt);
+  const r=$("subRu"); r.textContent=ru; r.style.visibility=showRu?"visible":"hidden";
+  $("prog").style.width=((idx+1)/topic.s.length*100)+"%";
+  $("count").textContent=`Фраза ${idx+1} из ${topic.s.length}`;
+  [...$("full").children].forEach((p,i)=>p.classList.toggle("cur",i===idx));
+  updateMeta();
+}
+function highlightAt(charIndex){
+  const lt=topic.s[idx][0]; let pos=0;
+  const spans=$("subLt").querySelectorAll(".w");
+  const parts=lt.split(/(\s+)/); let k=0;
+  parts.forEach(part=>{
+    if(/^\s+$/.test(part)){ pos+=part.length; return; }
+    const sp=spans[k++]; if(sp) sp.classList.toggle("on", charIndex>=pos && charIndex<pos+part.length);
+    pos+=part.length;
+  });
+}
+function clearHL(){ $("subLt").querySelectorAll(".w.on").forEach(s=>s.classList.remove("on")); }
+
+function stopSpeech(){ token++; clearTimeout(timer); if(synth) synth.cancel(); try{ player.pause(); }catch(e){} clearHL(); }
+function stopAll(){ playing=false; stopSpeech(); setPlayIcon(); }
+function setPlayIcon(){ $("playBtn").textContent = playing?"⏸":"▶"; syncMedia(); }
+
+/* ---------- media session: кнопки на руле / Bluetooth ---------- */
+const MS = ("mediaSession" in navigator) ? navigator.mediaSession : null;
+let keepAlive=null, remoteOn=false;
+function silentWavUrl(){
+  // 30 с почти тишины (8 бит, 8 кГц): Chrome даёт управление с руля только для звука > 5 с
+  const sr=8000, n=sr*30, buf=new ArrayBuffer(44+n), v=new DataView(buf);
+  const w=(o,s)=>{ for(let i=0;i<s.length;i++) v.setUint8(o+i,s.charCodeAt(i)); };
+  w(0,"RIFF"); v.setUint32(4,36+n,true); w(8,"WAVE"); w(12,"fmt ");
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,sr,true); v.setUint32(28,sr,true); v.setUint16(32,1,true); v.setUint16(34,8,true);
+  w(36,"data"); v.setUint32(40,n,true);
+  for(let i=0;i<n;i++) v.setUint8(44+i, 128); // полная тишина
+  return URL.createObjectURL(new Blob([buf],{type:"audio/wav"}));
+}
+function remoteStatus(){
+  const el=$("remote"); if(!el) return;
+  if(!MS){ el.textContent="🎛 Руль: этот браузер не поддерживает управление"; return; }
+  const on = keepAlive && !keepAlive.paused;
+  el.textContent = on ? (playing ? "🎛 Руль: подключён" : "🎛 Руль: подключён · пауза") : (playing ? "🎛 Руль: подключается…" : "🎛 Руль: нажми ▶ на телефоне");
+}
+function syncMedia(){
+  try{
+    if(playing){
+      if(!keepAlive){
+        keepAlive=new Audio(silentWavUrl()); keepAlive.loop=true;
+        keepAlive.addEventListener("playing", remoteStatus);
+        keepAlive.addEventListener("pause", ()=>{
+          // фоновую тишину не останавливаем, чтобы руль оставался подключён
+          if(remoteOn) setTimeout(()=>{ if(remoteOn && keepAlive.paused) keepAlive.play().catch(()=>{}); }, 300);
+          remoteStatus();
+        });
+      }
+      remoteOn=true;
+      if(keepAlive.paused){ const p=keepAlive.play(); if(p&&p.catch) p.catch(()=>remoteStatus()); }
+    }
+    if(MS) MS.playbackState = playing ? "playing" : "paused";
+  }catch(e){}
+  remoteStatus();
+}
+function remoteOff(){ remoteOn=false; if(keepAlive) keepAlive.pause(); remoteStatus(); }
+function togglePlay(){ if(playing) stopAll(); else $("playBtn").click(); }
+function updateMeta(){
+  if(!MS || !topic || typeof MediaMetadata==="undefined") return;
+  try{
+    MS.metadata = new MediaMetadata({ title: topic.s[idx][0], artist: topic.s[idx][1] || topic.ru, album: topic.lt });
+  }catch(e){}
+}
+function topicIndex(){ return allTopics().findIndex(t=>t.id===topic.id); }
+function nextPhrase(){
+  if(!topic) return;
+  if(idx<topic.s.length-1){ goTo(idx+1); return; }
+  const all=allTopics(), k=topicIndex();
+  if(k>=0 && k<all.length-1){ const wasPlaying=playing; openTopic(all[k+1], wasPlaying); }
+}
+function prevPhrase(){
+  if(!topic) return;
+  if(idx>0){ goTo(idx-1); return; }
+  const all=allTopics(), k=topicIndex();
+  if(k>0){ const wasPlaying=playing; openTopic(all[k-1], false); idx=topic.s.length-1; render(); if(wasPlaying) play(); }
+}
+if(MS){
+  const set=(a,f)=>{ try{ MS.setActionHandler(a,f); }catch(e){} };
+  set("play", togglePlay);
+  set("pause",togglePlay);
+  set("stop", ()=>{ if(playing) stopAll(); });
+  set("nexttrack", nextPhrase);
+  set("previoustrack", prevPhrase);
+  set("seekforward", nextPhrase);
+  set("seekbackward", prevPhrase);
+}
+
+function speakCurrent(){
+  const my=++token; clearTimeout(timer);
+  const text=topic.s[idx][0];
+  let fin=false;
+  const done=()=>{ if(my!==token||!playing||fin) return; fin=true; clearHL(); afterSentence(); };
+  const rec=AUDIO[text.trim()];
+  if(rec){
+    player.onended=done;
+    player.onerror=()=>{ delete AUDIO[text.trim()]; if(my===token&&playing) speakCurrent(); };
+    player.src=rec.src;
+    player.playbackRate=Math.max(0.5, Math.min(2, rate/0.85));
+    const spans=$("subLt").querySelectorAll(".w");
+    const tick=()=>{
+      if(my!==token) return;
+      const t=player.currentTime; let k=-1;
+      for(let j=0;j<rec.w.length;j++){ if(t>=rec.w[j][0]) k=j; else break; }
+      spans.forEach((s,j)=>s.classList.toggle("on", j===k));
+      if(!player.paused && !player.ended) requestAnimationFrame(tick);
+    };
+    player.onplaying=()=>requestAnimationFrame(tick);
+    const p=player.play(); if(p&&p.catch) p.catch(()=>{});
+    return;
+  }
+  if(synth && ltVoice){
+    let started=false;
+    const attempt=(n)=>{
+      if(my!==token||!playing) return;
+      const u=new SpeechSynthesisUtterance(text);
+      u.voice=ltVoice; u.lang=ltVoice.lang||"lt-LT"; u.rate=rate;
+      u.onstart=()=>{ started=true; };
+      u.onboundary=e=>{ started=true; if(my===token && e.name!=="sentence") highlightAt(e.charIndex); };
+      u.onend=()=>{ if(started) done(); };
+      u.onerror=e=>{ if(e.error!=="interrupted"&&e.error!=="canceled"&&started) done(); };
+      synth.speak(u);
+      // Android иногда «глотает» первую команду после паузы — быстро повторяем
+      setTimeout(()=>{
+        if(my!==token||!playing||started) return;
+        if(n<3){ synth.cancel(); setTimeout(()=>attempt(n+1),120); }
+        else done();
+      }, 700);
+    };
+    // после cancel() даём движку мгновение, иначе speak() может пропасть
+    setTimeout(()=>attempt(0), synth.speaking||synth.pending ? 150 : 0);
+    // страховка, если не пришёл onend
+    const est = (text.length*95)/rate + 4000;
+    timer=setTimeout(()=>{ if(my===token && playing && synth && !synth.speaking && started) done(); }, est);
+  }else{
+    // silent mode: time based on length
+    const words=text.split(/\s+/); const per=(420/rate); let i=0;
+    const step=()=>{ if(my!==token||!playing) return;
+      const spans=$("subLt").querySelectorAll(".w"); spans.forEach((s,j)=>s.classList.toggle("on",j===i));
+      i++; if(i<=words.length) timer=setTimeout(step, i===words.length? per*1.5 : per); else done(); };
+    step();
+  }
+}
+function afterSentence(){
+  const gap = pauseBetween ? Math.max(2500, topic.s[idx][0].length*90/rate) : 450;
+  timer=setTimeout(()=>{
+    if(!playing) return;
+    if(repeat){ speakCurrent(); return; }
+    if(idx<topic.s.length-1){ idx++; render(); speakCurrent(); }
+    else if(autoNext){ const all=allTopics(), k=topicIndex(); if(k>=0&&k<all.length-1) openTopic(all[k+1], true); else { playing=false; setPlayIcon(); } }
+    else { playing=false; setPlayIcon(); $("count").textContent="Готово ✓ Нажми ▶, чтобы прослушать снова"; }
+  }, gap);
+}
+function play(){
+  if(!topic) return;
+  if(idx>=topic.s.length) idx=0;
+  playing=true; setPlayIcon(); render(); speakCurrent();
+}
+function goTo(i){ idx=Math.max(0,Math.min(topic.s.length-1,i)); stopSpeech(); render(); if(playing) speakCurrent(); }
+
+$("playBtn").onclick=()=>{
+  if(playing){ stopAll(); return; }
+  if($("count").textContent.startsWith("Готово")) idx=0;
+  play();
+};
+$("prevBtn").onclick=()=>goTo(idx-1);
+$("nextBtn").onclick=()=>goTo(idx+1);
+$("backBtn").onclick=()=>{ stopAll(); remoteOff(); renderList(); show("list"); };
+$("repeatBtn").onclick=e=>{ repeat=!repeat; e.target.classList.toggle("on",repeat); };
+$("hideLtBtn").onclick=e=>{ hideLt=!hideLt; e.target.classList.toggle("on",hideLt); e.target.textContent=hideLt?"Литовский скрыт":"Скрыть литовский"; render(); };
+$("subLt").onclick=()=>{ if(hideLt) $("subLt").classList.toggle("hidden-txt"); };
+$("showRuBtn").onclick=e=>{ showRu=!showRu; e.target.classList.toggle("on",showRu); e.target.textContent=showRu?"Перевод: вкл":"Перевод: выкл"; render(); };
+$("autoNextBtn").onclick=e=>{ autoNext=!autoNext; e.target.classList.toggle("on",autoNext); };
+$("pauseBtn").onclick=e=>{ pauseBetween=!pauseBetween; e.target.classList.toggle("on",pauseBetween); };
+$("rate").oninput=e=>{ rate=parseFloat(e.target.value); $("rateVal").textContent=rate.toFixed(2)+"×"; };
+$("rate").onchange=()=>{ if(playing){ stopSpeech(); speakCurrent(); } };
+document.addEventListener("keydown",e=>{
+  if($("player").style.display!=="block") return;
+  if(e.code==="Space"){ e.preventDefault(); $("playBtn").click(); }
+  if(e.code==="ArrowRight") goTo(idx+1);
+  if(e.code==="ArrowLeft") goTo(idx-1);
+});
+
+/* ---------- editor ---------- */
+let editId=null;
+function splitSentences(txt){
+  const lines=txt.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  if(lines.length>1) return lines;
+  return (txt.match(/[^.!?…]+[.!?…]+["»”“]?|[^.!?…]+$/g)||[]).map(s=>s.trim()).filter(Boolean);
+}
+function openEditor(id){
+  stopAll(); editId=id; $("edErr").textContent="";
+  const t = id===null? {lt:"",ru:"",s:[]} : getTopic(id);
+  $("edHead").textContent = id===null? "Новая тема" : "Правка темы";
+  $("edTitleLt").value=t.lt; $("edTitleRu").value=t.ru;
+  $("edLt").value=t.s.map(p=>p[0]).join("\n"); $("edRu").value=t.s.map(p=>p[1]).join("\n");
+  ruMap={}; t.s.forEach(p=>{ if(p[1]) ruMap[p[1].trim()]=p[0]; });
+  if(t.ru) ruMap[t.ru.trim()]=t.lt;
+  $("trStatus").textContent=TR_HINT;
+  const del=$("edDelete");
+  if(id===null){ del.style.display="none"; }
+  else if(id[0]==="c"){ del.style.display="inline-block"; del.textContent="Удалить тему"; }
+  else { del.style.display = t.edited?"inline-block":"none"; del.textContent="Вернуть исходный текст"; }
+  show("editor");
+}
+/* авто-перевод RU -> LT целыми фразами (Google Translate); неизменённые фразы не трогаем */
+const TR_HINT="Пиши по-русски — литовский перевод появится ниже сам (переводятся целые фразы, нужен интернет).";
+let ruMap={}, trTimer=null, trGen=0;
+const trCache={};
+async function translateRu(text){
+  text=text.trim(); if(!text) return "";
+  if(trCache[text]) return trCache[text];
+  const url="https://translate.googleapis.com/translate_a/single?client=gtx&sl=ru&tl=lt&dt=t&q="+encodeURIComponent(text);
+  const r=await fetch(url); if(!r.ok) throw new Error("HTTP "+r.status);
+  const j=await r.json();
+  const out=(j[0]||[]).map(x=>x[0]).join("").trim();
+  if(!out) throw new Error("пустой перевод");
+  return trCache[text]=out;
+}
+function rememberManualLt(){
+  // ручная правка литовского: запоминаем пару, чтобы следующий перевод её не затёр
+  const ru=splitSentences($("edRu").value), lt=splitSentences($("edLt").value);
+  if(ru.length===lt.length) ru.forEach((r,i)=>{ ruMap[r]=lt[i]; });
+}
+async function syncLt(){
+  const gen=++trGen, st=$("trStatus");
+  const ru=splitSentences($("edRu").value);
+  const need=ru.filter(r=>!(r in ruMap));
+  if(need.length) st.textContent=`Перевожу ${need.length} фраз…`;
+  try{
+    const res=await Promise.all(ru.map(r=> r in ruMap ? ruMap[r] : translateRu(r)));
+    if(gen!==trGen) return;
+    ru.forEach((r,i)=>{ ruMap[r]=res[i]; });
+    $("edLt").value=res.join("\n");
+    if(need.length) st.textContent=`Переведено ✓ (${need.length} фраз). Проверь литовский текст.`;
+  }catch(e){
+    if(gen===trGen) st.textContent="Не получилось перевести (нет интернета?). Литовский можно вписать вручную.";
+  }
+}
+$("edRu").addEventListener("input",()=>{ clearTimeout(trTimer); trTimer=setTimeout(syncLt,900); });
+$("edLt").addEventListener("change",rememberManualLt);
+let titleTimer=null;
+$("edTitleRu").addEventListener("input",()=>{
+  clearTimeout(titleTimer);
+  titleTimer=setTimeout(async()=>{
+    const v=$("edTitleRu").value.trim(); if(!v) return;
+    if(v in ruMap){ $("edTitleLt").value=ruMap[v]; return; }
+    try{ $("edTitleLt").value=ruMap[v]=await translateRu(v); }catch(e){}
+  },900);
+});
+$("editBtn").onclick=()=>openEditor(topic.id);
+$("edBack").onclick=$("edCancel").onclick=()=>{ if(editId) openTopic(getTopic(editId),false); else { renderList(); show("list"); } };
+$("edSave").onclick=()=>{
+  const lt=splitSentences($("edLt").value), ru=splitSentences($("edRu").value);
+  const tl=$("edTitleLt").value.trim(), tr=$("edTitleRu").value.trim();
+  if(!tl){ $("edErr").textContent="Впиши название темы."; return; }
+  if(!lt.length){ $("edErr").textContent="Впиши текст (русский переведётся сам)."; return; }
+  if(ru.length && ru.length!==lt.length){ $("edErr").textContent=`Литовских фраз ${lt.length}, а русских ${ru.length}. Сделай поровну — по одной фразе на строку.`; return; }
+  const t={lt:tl, ru:tr||tl, s:lt.map((l,i)=>[l, ru[i]||""])};
+  let id=editId;
+  if(id===null){ custom.push(t); id="c"+(custom.length-1); }
+  else if(id[0]==="c"){ custom[+id.slice(1)]=t; }
+  else { edits[+id.slice(1)]=t; }
+  const ok=saveAll();
+  renderList(); openTopic(getTopic(id), false);
+  if(!ok){ const w=$("warn"); w.style.display="block"; w.textContent="Изменения видны, но браузер не дал их сохранить — после перезагрузки они пропадут."; }
+};
+$("edDelete").onclick=()=>{
+  if(editId===null) return;
+  if(editId[0]==="c"){ custom.splice(+editId.slice(1),1); saveAll(); renderList(); show("list"); }
+  else { delete edits[+editId.slice(1)]; saveAll(); renderList(); openTopic(getTopic(editId),false); }
+};
+
+/* ---------- transfer ---------- */
+function openTransfer(){
+  stopAll();
+  $("trOut").value = JSON.stringify({custom, edits});
+  $("trIn").value=""; $("trMsg").textContent="";
+  show("transfer");
+}
+$("trBack").onclick=()=>{ renderList(); show("list"); };
+$("trCopy").onclick=async()=>{
+  try{ await navigator.clipboard.writeText($("trOut").value); $("trMsg").textContent="Скопировано ✓"; }
+  catch(e){ $("trOut").select(); $("trMsg").textContent="Выдели текст и скопируй вручную."; }
+};
+$("trLoad").onclick=()=>{
+  try{
+    const d=JSON.parse($("trIn").value);
+    if(!d || !Array.isArray(d.custom) || typeof d.edits!=="object") throw 0;
+    custom=d.custom; edits=d.edits; saveAll(); renderList(); show("list");
+  }catch(e){ $("trMsg").textContent="Не получилось прочитать — вставь текст целиком."; }
+};
+
+renderList(); show("list");
+</script>
+</body>
+</html>
