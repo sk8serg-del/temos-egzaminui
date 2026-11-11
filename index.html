@@ -841,7 +841,7 @@ function highlightAt(charIndex){
 }
 function clearHL(){ $("subLt").querySelectorAll(".w.on").forEach(s=>s.classList.remove("on")); }
 
-function stopSpeech(){ token++; clearTimeout(timer); if(synth) synth.cancel(); try{ player.pause(); }catch(e){} clearHL(); }
+function stopSpeech(){ token++; clearTimeout(timer); if(synth) synth.cancel(); try{ player.pause(); ruPlayer.pause(); }catch(e){} clearHL(); }
 function stopAll(){ playing=false; stopSpeech(); setPlayIcon(); }
 function setPlayIcon(){ $("playBtn").textContent = playing?"⏸":"▶"; syncMedia(); }
 
@@ -936,7 +936,15 @@ function speakCurrent(){
       if(!player.paused && !player.ended) requestAnimationFrame(tick);
     };
     player.onplaying=()=>requestAnimationFrame(tick);
+    // в конце mp3 Microsoft добавляет ~1.16 с тишины — если дальше русский, обрываем её
+    const lastW = rec.w.length ? rec.w[rec.w.length-1][0] : 0;
+    player.ontimeupdate=()=>{
+      if(my!==token || !sayRu || !(topic.s[idx][1]||"").trim()) return;
+      const d=player.duration;
+      if(isFinite(d) && player.currentTime>lastW && player.currentTime>=d-1.0){ player.ontimeupdate=null; player.pause(); done(); }
+    };
     const p=player.play(); if(p&&p.catch) p.catch(()=>{});
+    preloadRu();
     return;
   }
   if(synth && ltVoice){
@@ -971,7 +979,7 @@ function speakCurrent(){
     step();
   }
 }
-/* русский перевод вслух после литовской фразы (mp3 голосом Dmitry, иначе голос браузера) */
+/* русский перевод вслух после литовской фразы (mp3 голосом Svetlana, иначе голос браузера) */
 let sayRu=true; try{ sayRu = localStorage.getItem("lt-temos-say-ru")!=="0"; }catch(e){}
 function ruVoice(){
   if(!synth) return null;
@@ -994,20 +1002,24 @@ function speakRu(my, cb){
     timer=setTimeout(done, text.length*110/rate + 4000);
   };
   if(rec){
-    player.onended=done;
-    player.onerror=()=>{ delete AUDIO[text]; if(my===token&&playing) browser(); };
-    player.onplaying=null;
-    player.src=rec.src;
-    player.playbackRate=Math.max(0.5, Math.min(2, rate/0.85));
-    const p=player.play(); if(p&&p.catch) p.catch(()=>{});
+    // mp3 уже загружен заранее (preloadRu), тишину в начале записи пропускаем
+    if(!ruPlayer.src.endsWith(rec.src)) ruPlayer.src=rec.src;
+    ruPlayer.onended=done;
+    ruPlayer.onerror=()=>{ delete AUDIO[text]; if(my===token&&playing) browser(); };
+    ruPlayer.playbackRate=Math.max(0.5, Math.min(2, rate/0.85));
+    const lead=rec.w && rec.w.length ? Math.max(0, rec.w[0][0]-0.05) : 0;
+    try{ ruPlayer.currentTime=lead; }catch(e){}
+    const p=ruPlayer.play(); if(p&&p.catch) p.catch(()=>{});
   } else browser();
 }
+const ruPlayer=new Audio(); ruPlayer.preload="auto";
+function preloadRu(){
+  if(!sayRu || !topic) return;
+  const rec=AUDIO[(topic.s[idx][1]||"").trim()];
+  if(rec && !ruPlayer.src.endsWith(rec.src)){ ruPlayer.src=rec.src; ruPlayer.load(); }
+}
 function afterSentence(){
-  if(sayRu && playing){
-    const my=token;
-    timer=setTimeout(()=>{ if(my===token&&playing) speakRu(my, nextAfterRu); }, 350);
-    return;
-  }
+  if(sayRu && playing){ speakRu(token, nextAfterRu); return; }
   nextAfterRu();
 }
 function nextAfterRu(){

@@ -4,7 +4,7 @@
 #   python lt_audio.py          -> озвучить все темы
 #   python lt_audio.py 1        -> только тему 1;   python lt_audio.py 1 3 -> темы 1 и 3
 #
-# Озвучиваются литовские фразы (Ona) и их русский перевод (Dmitry).
+# Озвучиваются литовские фразы (Ona) и их русский перевод (Svetlana).
 # Фразы берутся прямо из index.html (массив BUILTIN). Если рядом лежит edits.json
 # (текст из кнопки «⇄ Перенести правки» на страничке) — озвучиваются и твои правки.
 # Результат: audio/<хеш>.mp3 + audio/timings.json (текст фразы и время каждого слова).
@@ -13,7 +13,7 @@ import asyncio, hashlib, json, os, re, sys
 import edge_tts
 
 VOICE = "lt-LT-OnaNeural"   # мужской голос: "lt-LT-LeonasNeural"
-RU_VOICE = "ru-RU-DmitryNeural"  # русский перевод (озвучивается после литовской фразы)
+RU_VOICE = "ru-RU-SvetlanaNeural"  # русский перевод (DmitryNeural у Microsoft часто отвечает «No audio»)
 RATE = "-10%"               # чуть медленнее обычного
 HERE = os.path.dirname(os.path.abspath(__file__))
 AUDIO = os.path.join(HERE, "audio")
@@ -82,20 +82,22 @@ async def main():
                     continue
                 k = key_for(text)
                 mp3 = os.path.join(AUDIO, k + ".mp3")
-                if k in timings and os.path.exists(mp3) and os.path.getsize(mp3) > 0:
+                old = timings.get(k)
+                # запись есть и сделана тем же голосом (старые записи без поля voice — голос Ona)
+                if old and old.get("voice", VOICE) == voice and os.path.exists(mp3) and os.path.getsize(mp3) > 0:
                     continue
                 todo.append((k, text, voice, lang))
     todo = list(dict.fromkeys(todo))
     print(f"Нужно озвучить фраз: {len(todo)}")
 
     for n, (k, text, voice, lang) in enumerate(todo, 1):
-        for attempt in range(3):
+        for attempt in range(6):  # сервис Microsoft иногда отвечает «No audio» — ждём всё дольше
             try:
-                timings[k] = {"text": text.strip(), "lang": lang, "w": await synth(text, os.path.join(AUDIO, k + ".mp3"), voice)}
+                timings[k] = {"text": text.strip(), "lang": lang, "voice": voice, "w": await synth(text, os.path.join(AUDIO, k + ".mp3"), voice)}
                 break
             except Exception as e:
                 print("  повтор:", e)
-                await asyncio.sleep(2)
+                await asyncio.sleep(3 * 2 ** attempt)
         json.dump(timings, open(tpath, "w", encoding="utf-8"), ensure_ascii=False)
         print(f"{n}/{len(todo)}  {text}")
     print("Готово.")
