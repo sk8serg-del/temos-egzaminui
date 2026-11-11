@@ -4,6 +4,7 @@
 #   python lt_audio.py          -> озвучить все темы
 #   python lt_audio.py 1        -> только тему 1;   python lt_audio.py 1 3 -> темы 1 и 3
 #
+# Озвучиваются литовские фразы (Ona) и их русский перевод (Dmitry).
 # Фразы берутся прямо из index.html (массив BUILTIN). Если рядом лежит edits.json
 # (текст из кнопки «⇄ Перенести правки» на страничке) — озвучиваются и твои правки.
 # Результат: audio/<хеш>.mp3 + audio/timings.json (текст фразы и время каждого слова).
@@ -12,6 +13,7 @@ import asyncio, hashlib, json, os, re, sys
 import edge_tts
 
 VOICE = "lt-LT-OnaNeural"   # мужской голос: "lt-LT-LeonasNeural"
+RU_VOICE = "ru-RU-DmitryNeural"  # русский перевод (озвучивается после литовской фразы)
 RATE = "-10%"               # чуть медленнее обычного
 HERE = os.path.dirname(os.path.abspath(__file__))
 AUDIO = os.path.join(HERE, "audio")
@@ -43,16 +45,16 @@ def key_for(text):
     return hashlib.md5(text.strip().encode("utf-8")).hexdigest()[:12]
 
 
-def communicate(text):
+def communicate(text, voice):
     try:
-        return edge_tts.Communicate(text, VOICE, rate=RATE, boundary="WordBoundary")
+        return edge_tts.Communicate(text, voice, rate=RATE, boundary="WordBoundary")
     except TypeError:  # старые версии edge-tts
-        return edge_tts.Communicate(text, VOICE, rate=RATE)
+        return edge_tts.Communicate(text, voice, rate=RATE)
 
 
-async def synth(text, path):
+async def synth(text, path, voice):
     audio, words = bytearray(), []
-    async for ch in communicate(text).stream():
+    async for ch in communicate(text, voice).stream():
         if ch["type"] == "audio":
             audio += ch["data"]
         elif ch["type"] == "WordBoundary":
@@ -74,19 +76,22 @@ async def main():
     for ti, t in enumerate(topics):
         if only and ti not in only:
             continue
-        for lt, _ru in t["s"]:
-            k = key_for(lt)
-            mp3 = os.path.join(AUDIO, k + ".mp3")
-            if k in timings and os.path.exists(mp3) and os.path.getsize(mp3) > 0:
-                continue
-            todo.append((k, lt))
+        for lt, ru in t["s"]:
+            for text, voice, lang in ((lt, VOICE, "lt"), (ru, RU_VOICE, "ru")):
+                if not (text or "").strip():
+                    continue
+                k = key_for(text)
+                mp3 = os.path.join(AUDIO, k + ".mp3")
+                if k in timings and os.path.exists(mp3) and os.path.getsize(mp3) > 0:
+                    continue
+                todo.append((k, text, voice, lang))
     todo = list(dict.fromkeys(todo))
     print(f"Нужно озвучить фраз: {len(todo)}")
 
-    for n, (k, text) in enumerate(todo, 1):
+    for n, (k, text, voice, lang) in enumerate(todo, 1):
         for attempt in range(3):
             try:
-                timings[k] = {"text": text.strip(), "w": await synth(text, os.path.join(AUDIO, k + ".mp3"))}
+                timings[k] = {"text": text.strip(), "lang": lang, "w": await synth(text, os.path.join(AUDIO, k + ".mp3"), voice)}
                 break
             except Exception as e:
                 print("  повтор:", e)

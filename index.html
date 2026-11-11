@@ -121,6 +121,7 @@
       <button class="chip" id="repeatBtn">🔁 Повтор фразы</button>
       <button class="chip" id="hideLtBtn">Скрыть литовский</button>
       <button class="chip on" id="showRuBtn">Перевод: вкл</button>
+      <button class="chip on" id="sayRuBtn">🔊 Русский после фразы</button>
       <button class="chip" id="pauseBtn">Пауза между фразами</button>
       <button class="chip" id="autoNextBtn">Темы подряд</button>
     </div>
@@ -714,7 +715,10 @@ const GH_REPO="sk8serg-del/temos-egzaminui", GH_TOKEN_KEY="lt-temos-gh-token";
 const GH_API="https://api.github.com/repos/"+GH_REPO+"/contents/edits.json";
 let vsBusy=false, vsAgain=false, vsPoll=null, vsClick=null;
 function missingAudio(){
-  let n=0; allTopics().forEach(t=>t.s.forEach(p=>{ if(!AUDIO[p[0].trim()]) n++; })); return n;
+  let n=0; allTopics().forEach(t=>t.s.forEach(p=>{
+    if(!AUDIO[p[0].trim()]) n++;
+    if(p[1] && p[1].trim() && !AUDIO[p[1].trim()]) n++;
+  })); return n;
 }
 function vstat(text, onclick){
   const e=$("vstat"); e.textContent=text; vsClick=onclick||null;
@@ -967,7 +971,46 @@ function speakCurrent(){
     step();
   }
 }
+/* русский перевод вслух после литовской фразы (mp3 голосом Dmitry, иначе голос браузера) */
+let sayRu=true; try{ sayRu = localStorage.getItem("lt-temos-say-ru")!=="0"; }catch(e){}
+function ruVoice(){
+  if(!synth) return null;
+  const v=synth.getVoices().filter(v=>/^ru/i.test(v.lang));
+  return v.find(x=>/natural|neural|online/i.test(x.name)) || v[0] || null;
+}
+function speakRu(my, cb){
+  const text=(topic.s[idx][1]||"").trim();
+  if(!text){ cb(); return; }
+  let fin=false;
+  const done=()=>{ if(my!==token||!playing||fin) return; fin=true; cb(); };
+  const rec=AUDIO[text];
+  const browser=()=>{
+    const v=ruVoice();
+    if(!v){ done(); return; }
+    const u=new SpeechSynthesisUtterance(text);
+    u.voice=v; u.lang=v.lang||"ru-RU"; u.rate=Math.min(1.3, rate/0.85);
+    u.onend=done; u.onerror=e=>{ if(e.error!=="interrupted"&&e.error!=="canceled") done(); };
+    synth.speak(u);
+    timer=setTimeout(done, text.length*110/rate + 4000);
+  };
+  if(rec){
+    player.onended=done;
+    player.onerror=()=>{ delete AUDIO[text]; if(my===token&&playing) browser(); };
+    player.onplaying=null;
+    player.src=rec.src;
+    player.playbackRate=Math.max(0.5, Math.min(2, rate/0.85));
+    const p=player.play(); if(p&&p.catch) p.catch(()=>{});
+  } else browser();
+}
 function afterSentence(){
+  if(sayRu && playing){
+    const my=token;
+    timer=setTimeout(()=>{ if(my===token&&playing) speakRu(my, nextAfterRu); }, 350);
+    return;
+  }
+  nextAfterRu();
+}
+function nextAfterRu(){
   const gap = pauseBetween ? Math.max(2500, topic.s[idx][0].length*90/rate) : 450;
   timer=setTimeout(()=>{
     if(!playing) return;
@@ -996,6 +1039,8 @@ $("repeatBtn").onclick=e=>{ repeat=!repeat; e.target.classList.toggle("on",repea
 $("hideLtBtn").onclick=e=>{ hideLt=!hideLt; e.target.classList.toggle("on",hideLt); e.target.textContent=hideLt?"Литовский скрыт":"Скрыть литовский"; render(); };
 $("subLt").onclick=()=>{ if(hideLt) $("subLt").classList.toggle("hidden-txt"); };
 $("showRuBtn").onclick=e=>{ showRu=!showRu; e.target.classList.toggle("on",showRu); e.target.textContent=showRu?"Перевод: вкл":"Перевод: выкл"; render(); };
+$("sayRuBtn").classList.toggle("on",sayRu);
+$("sayRuBtn").onclick=e=>{ sayRu=!sayRu; e.target.classList.toggle("on",sayRu); try{ localStorage.setItem("lt-temos-say-ru", sayRu?"1":"0"); }catch(_){} };
 $("autoNextBtn").onclick=e=>{ autoNext=!autoNext; e.target.classList.toggle("on",autoNext); };
 $("pauseBtn").onclick=e=>{ pauseBetween=!pauseBetween; e.target.classList.toggle("on",pauseBetween); };
 $("rate").oninput=e=>{ rate=parseFloat(e.target.value); $("rateVal").textContent=rate.toFixed(2)+"×"; };
