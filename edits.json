@@ -118,6 +118,60 @@
      "Спасибо за внимание."
     ]
    ]
+  },
+  "3": {
+   "lt": "Mano namai",
+   "ru": "Мой дом",
+   "s": [
+    [
+     "Mano vardas Sergejus. Esu kilusi iš Baltarusijos, iš Minsko. Laisvai kalbu rusiškai ir angliškai, pastarąjį pusmetį aktyviai mokausi lietuvių kalbos.",
+     "Меня зовут Сергей. Я родом из Беларуси, из Минска. Я свободно говорю по-русски и по-английски, а последние полгода активно изучаю литовский язык."
+    ],
+    [
+     "Prieš trejus metus su šeima persikėlėme gyventi į Lietuvą. Dabar gyvename Vilniuje, gražiame istoriniame Užupio rajone. Mums čia labai patinka.",
+     "Три года назад мы с семьей переехали жить в Литву. Сейчас мы живем в Вильнюсе, в красивом историческом районе Ужупис. Нам здесь очень нравится."
+    ],
+    [
+     "Mūsų šeimą sudaro trys žmonės: aš, mano žmona ir mūsų sūnus. Aš dirbu projektavimo inžinieriumi įmonėje, o mano žmona dirba namuose kaip laisvai samdoma vertėja. Mūsų sūnui 13 metų. Jis lanko mokyklą ir labai domisi dviračiu. Turime ir augintinį – šunį. Jai jau 14 metų, todėl dažniausiai ilsisi ir miega.",
+     "Наша семья состоит из трех человек: я, моя жена и наш сын. Я работаю инженером-конструктором в компании, а моя жена работает из дома — она фрилансер. Нашему сыну 13 лет. Он учится в школе и очень увлекается катанием на велосипеде. Также у нас есть домашний питомец — собака. Ей уже 14 лет, поэтому она в основном отдыхает и спит."
+    ],
+    [
+     "Laisvalaikiu mėgstu važinėtis motociklu ir žaisti futbolą su draugais. Vakarais su žmona mėgstame kartu žiūrėti detektyvinius serialus. Gyvendami Vilniuje jaučiamės labai patogiai.",
+     "В свободное время я люблю кататься на мотоцикле и играть с друзьями в футбол. По вечерам мы с женой любим вместе смотреть детективные сериалы. Нам очень комфортно жить в Вильнюсе."
+    ],
+    [
+     "Mano butas:",
+     "Моя квартира:"
+    ],
+    [
+     "Išnuomojame jaukų trijų kambarių butą trečiame aukšte. Butas neturi balkono, tačiau dėl didelių langų visada daug šviesos.",
+     "Мы снимаем уютную трехкомнатную квартиру на третьем этаже. В квартире нет балкона, но благодаря большим окнам в ней всегда много света."
+    ],
+    [
+     "Butas yra tokio išplanavimo: svetainė sujungta su virtuve, tėvų miegamasis, sūnaus kambarys ir atskiras vonios kambarys (vonios kambarys ir tualetas atskirai).",
+     "В квартире следующая планировка: гостиная, совмещенная с кухней, спальня родителей, комната сына, а также раздельный санузел (ванная и туалет отдельно)."
+    ],
+    [
+     "Svetainė sujungta su virtuve: Tai erdvi bendra erdvė. Svetainėje yra stilinga sofa, kavos staliukas ir televizorius. Virtuvės zonoje yra stalas su kėdėmis, naujas šaldytuvas ir virtuvės spintelės.",
+     "Гостиная, совмещенная с кухней: Это просторное общее пространство. В зоне отдыха стоят стильный диван, журнальный столик и телевизор. В зоне кухни размещены стол со стульями, новый холодильник и кухонные шкафчики."
+    ],
+    [
+     "Tėvų miegamasis: tai ramus ir jaukus kambarys. Yra didelė lova, erdvi drabužių spinta ir naktinė lempa.",
+     "Спальня родителей: Это тихая и уютная комната. Здесь находятся большая кровать, вместительный шкаф для одежды и ночная лампа."
+    ],
+    [
+     "Sūnaus kambarys: tai asmeninė sūnaus erdvė. Yra lova, rašomasis stalas, patogi kėdė, knygų lentyna ir kompiuteris.",
+     "Комната сына: Это личное пространство сына. Здесь стоят кровать, письменный стол, удобное кресло, полка для книг и компьютер."
+    ],
+    [
+     "Vonios kambarys ir tualetas: vonios kambarys atskirai. Vonios kambaryje yra dušo kabina, veidrodis ir spintelė. Tualetas yra atskiroje patalpoje.",
+     "Ванная комната и туалет: Санузел раздельный. В ванной установлены душевая кабина, зеркало и шкафчик. Туалет находится в отдельном помещении."
+    ],
+    [
+     "Mūsų namuose labai šilta ir jauku, čia jaučiamės labai gerai!",
+     "Наш дом очень теплый и уютный, мы чувствуем себя здесь очень хорошо!"
+    ]
+   ]
   }
  }
 }
