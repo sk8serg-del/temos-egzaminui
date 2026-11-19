@@ -124,24 +124,8 @@
    "ru": "Мой дом",
    "s": [
     [
-     "Mano vardas Sergejus.",
-     "Меня зовут Сергей."
-    ],
-    [
-     "Esu kilusi iš Baltarusijos, iš Minsko.",
-     "Я родом из Беларуси, из Минска."
-    ],
-    [
-     "Laisvai kalbu rusiškai ir angliškai, pastarąjį pusmetį aktyviai mokausi lietuvių kalbos.",
-     "Я свободно говорю по-русски и по-английски, а последние полгода активно изучаю литовский язык."
-    ],
-    [
-     "Prieš trejus metus su šeima persikėlėme gyventi į Lietuvą.",
-     "Три года назад мы с семьей переехали жить в Литву."
-    ],
-    [
-     "Dabar gyvename Vilniuje, gražiame istoriniame Užupio rajone.",
-     "Сейчас мы живем в Вильнюсе, в красивом историческом районе Ужупис."
+     "mano šeima gyvena Vilniuje, gražiame istoriniame Užupio rajone.",
+     "моя семья живет в Вильнюсе, в красивом историческом районе Ужупис."
     ],
     [
      "Mums čia labai patinka.",
@@ -152,56 +136,20 @@
      "Наша семья состоит из трех человек: я, моя жена и наш сын."
     ],
     [
-     "Aš dirbu projektavimo inžinieriumi įmonėje, o mano žmona dirba namuose kaip laisvai samdoma vertėja.",
-     "Я работаю инженером-конструктором в компании, а моя жена работает из дома — она фрилансер."
-    ],
-    [
-     "Mūsų sūnui 13 metų.",
-     "Нашему сыну 13 лет."
-    ],
-    [
-     "Jis lanko mokyklą ir labai domisi dviračiu.",
-     "Он учится в школе и очень увлекается катанием на велосипеде"
-    ],
-    [
-     ".Turime ir augintinį – šunį.",
-     ".Также у нас есть домашний питомец — собака."
-    ],
-    [
-     "Jai jau 14 metų, todėl dažniausiai ilsisi ir miega.",
-     "Ей уже 14 лет, поэтому она в основном отдыхает и спит."
-    ],
-    [
-     "Laisvalaikiu mėgstu važinėtis motociklu ir žaisti futbolą su draugais.",
-     "В свободное время я люблю кататься на мотоцикле и играть с друзьями в футбол."
-    ],
-    [
-     "Vakarais su žmona mėgstame kartu žiūrėti detektyvinius serialus.",
-     "По вечерам мы с женой любим вместе смотреть детективные сериалы."
-    ],
-    [
-     "Gyvendami Vilniuje jaučiamės labai patogiai.",
-     "Нам очень комфортно жить в Вильнюсе."
-    ],
-    [
-     "Mano butas:",
-     "Моя квартира:"
+     "Turime ir šunį, ji sena, todėl dažniausiai ilsisi ir miega.",
+     "Также у нас  собака, она старая поэтому  она в основном отдыхает и спит."
     ],
     [
      "Išnuomojame jaukų trijų kambarių butą trečiame aukšte.",
      "Мы снимаем уютную трехкомнатную квартиру на третьем этаже."
     ],
     [
-     "Butas neturi balkono, tačiau dėl didelių langų visada daug šviesos.",
-     "В квартире нет балкона, но благодаря большим окнам в ней всегда много света."
-    ],
-    [
      "Butas yra tokio išplanavimo: svetainė sujungta su virtuve, tėvų miegamasis, sūnaus kambarys ir atskiras vonios kambarys (vonios kambarys ir tualetas atskirai).",
      "В квартире следующая планировка: гостиная, совмещенная с кухней, спальня родителей, комната сына, а также раздельный санузел (ванная и туалет отдельно)."
     ],
     [
-     "Svetainė sujungta su virtuve: Tai erdvi bendra erdvė.",
-     "Гостиная, совмещенная с кухней: Это просторное общее пространство."
+     "Svetainė sujungta su virtuve",
+     "Гостиная, совмещенная с кухней"
     ],
     [
      "Svetainėje yra stilinga sofa, kavos staliukas ir televizorius.",
@@ -220,12 +168,8 @@
      "Здесь находятся большая кровать, вместительный шкаф для одежды и ночная лампа."
     ],
     [
-     "Sūnaus kambarys: tai asmeninė sūnaus erdvė.",
-     "Комната сына: Это личное пространство сына."
-    ],
-    [
-     "Yra lova, rašomasis stalas, patogi kėdė, knygų lentyna ir kompiuteris.",
-     "Здесь стоят кровать, письменный стол, удобное кресло, полка для книг и компьютер."
+     "Sūnaus kambarys Yra lova, rašomasis stalas, patogi kėdė, lentyna knygoms ir kompiuteris.",
+     "Комната сына Здесь стоят кровать, письменный стол, удобное кресло, полка для книг и компьютер."
     ],
     [
      "Vonios kambarys ir tualetas: vonios kambarys atskirai.",
@@ -234,10 +178,6 @@
     [
      "Vonios kambaryje yra dušo kabina, veidrodis ir spintelė.",
      "В ванной установлены душевая кабина, зеркало и шкафчик."
-    ],
-    [
-     "Tualetas yra atskiroje patalpoje.",
-     "Туалет находится в отдельном помещении."
     ],
     [
      "Mūsų namuose labai šilta ir jauku, čia jaučiamės labai gerai!",
